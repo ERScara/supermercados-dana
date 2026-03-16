@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/checkout.css' %}">
+{% endblock %}
+
+{% block title %}Checkout - Dana{% endblock %}
+
+{% block content %}
+<div class="checkout-wrapper">
+    <h1>Finalizar compra</h1>
+    <hr>
+
+    <div class="checkout-body">
+        <h2>Datos de pago</h2>
+        <div class="checkout-aviso">
+            Esta es una simulacion. No ingrese datos bancarios reales.
+        </div>
+
+        <form method="POST" action="{% url 'compras:checkout' %}">
+            {% csrf_token %}
+            <div class="form-input">
+                <label>{{ form.nombre_titular.label }}</label>
+                {{ form.nombre_titular }}
+                {% if form.nombre_titular.errors %}
+                <em><small class="invalid-feedback">
+                    {{ form.nombre_titular.errors|join:', ' }} 
+                </small></em>
+                {% endif %}
+            </div>
+            <div class="form-input">
+                <label>{{ form.numero_tarjeta.label }}</label>
+                {{ form.numero_tarjeta }}
+                {% if form.numero_tarjeta.label %}
+                <em><small>
+                   {{ form.numero_tarjeta.errors|join:', ' }}
+                </small></em>
+                {% endif %}
+            </div>
+            <div class="checkout-fila">
+                <div class="form-input">
+                    <label>{{ form.vencimiento.label }}</label>
+                    {{ form.vencimiento }}
+                    {% if form.vencimiento.errors %}
+                    <em><small>
+                        {{ form.vencimiento.error|join:', '}}
+                    </small></em>
+                    {% endif %}
+                </div>
+                <div class="form-input">
+                    <label>{{ form.cvv.label }}</label>
+                    {{ form.cvv }}
+                    {% if form.cvv.errors %}
+                    <em><small>
+                        {{ form.cvv.errors|join:', ' }}
+                    </small></em>
+                    {% endif %}
+                </div> 
+            </div>
+            <button type="submit" class="form-button btn-pagar">
+                Confirmar pago - ${{ carrito.total }}
+            </button>
+        </form>
+    </div>
+    <div class="checkout-resumen">
+        <h2>Tu orden</h2>
+        <hr>
+        {% for item in items %}
+        <div class="checkout-item">
+            <span>{{ item.producto.nombre }} &times; {{ item.cantidad }}</span>
+            <span>${{ item.subtotal }}</span>
+        </div>
+        {% endfor %}
+        <hr>
+        <div class="checkout-total">
+            <strong>Total</strong>
+            <strong>${{ carrito.total }}</strong>
+        </div>
+    </div>
+</div>
+
+{% block extra_js %}
+<script type="text/javascript">
+    const inputTarjeta = document.getElementById('numero-tarjeta');
+    if (inputTarjeta) {
+        inputTarjeta.addEventListener('input', function() {
+            let valor = this.value.repalace(/\D/g, '');
+            valor= valor.substring(0, 16);
+            valor = valor.replace(/(.{4})/g, '$1').trim()
+            this.value = valor;
+        })
+    }
+    const inputVenc = document.getElementById('vencimiento');
+    if (inputVenc) {
+        inputVenc.addEventListener('input', function() {
+            let valor = this.value.replace(/\D/g, '');
+            if (valor.length >= 2) {
+                valor = valor.substring(0, 2) + '/' + valor.substring(2, 4);
+            }
+            this.value = valor;
+        });
+    }
+</script>
+
+{% endblock %}
+{% endblock %}

@@ -1,0 +1,83 @@
+{% load static %}
+
+<nav class="menu">
+   <ul>
+     <li id="align">
+        <a href="{% url 'productos:inicio' %}" id='init'>
+            <img src="{% static 'img/carrito.svg'%}" alt="Supermercados Dana" class="brand-logo">
+        </a>
+     </li>
+     <li>
+        <a href="{% url 'productos:lista' %}"
+        class="{% if request.path == '/productos/' %}active{% endif %}">
+         Productos
+        </a>
+     </li>
+     <li>
+        <a href="{% url 'carrito:ver' %}"
+         class="{% if request.path == '/carrito/' %}active{% endif %}">
+         Compras
+        </a>
+     </li>
+     {% if request.user.is_authenticated %}
+     <li>
+       <a href="{% url 'clientes:perfil' %}"
+         class="{% if request.path == '/perfil/' %}active{% endif %}">
+         Mi Cuenta
+        </a>
+     </li>
+     {% else %}
+     <li>
+       <a href="{% url 'clientes:login' %}"
+        class="{% if request.path == '/registro/' %}active{% endif %}">
+         Registrarse 
+       </a>
+     </li>
+     {% endif %}
+   </ul>
+</nav>
+<nav>
+    <div class="nav-auth">
+        {% if request.user.is_authenticated %}
+        <p class="user">
+            ¡Bienvenido, <strong>{{ request.user.username }}</strong>!
+        </p>
+        <form method="POST" action="{% url 'clientes:logout' %}" class="form-login">
+            {% csrf_token %}
+            <button type="submit" class="nav-button">
+                Cerrar Sesión
+            </button>
+        </form>
+        {% else %}
+        <p class="user">
+            Ingresa a tu cuenta
+        </p>
+        <a href="{% url 'clientes:login' %}">
+            <button type="button" class="nav-button">Ingresar</button>
+        </a>
+        {% endif %}
+    </div>
+</nav>
+
+<nav>
+    <div class="search">
+        <form method="GET" action="{% url 'productos:buscar' %}" class="search-form">
+            <input type="search" name="q" class="global-search" placeholder="Buscar productos..." value="{{ request.GET.q }}">
+            <button type="submit" class="search-button">Buscar</button>
+        </form>
+        {% if resultados_busqueda  %}
+        <div class="global-search-box">
+            <span><b>Resultados:</b></span>
+            {% for producto in resultados_busqueda %}
+            <div class="search-item">
+                <a href="{% url 'productos:detalle' producto.id %}">
+                    {{ producto.nombre }} - ${{ producto.precio }}
+                </a>
+            </div>
+            {% empty %}
+            <span>No se encontraron productos. </span>
+            {% endfor %}
+        </div>
+        {% endif %}
+    </div>
+</nav>

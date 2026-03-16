@@ -1,0 +1,237 @@
+.catalogo-wrapper {
+    max-width: 1200px;
+    margin: 30px auto;
+    padding: 0 20px;
+}
+
+.catalogo-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-bottom: 30px;
+    border-bottom: 2px solid bisque;
+    padding-bottom: 15px;
+}
+
+.catalogo-header h1 {
+    font-size: 28px;
+    color: #343f44;
+    margin: 0;
+}
+
+.catalogo-filtros {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.filtro-btn {
+    padding: 6px 14px;
+    border-radius: 20px;
+    border: 2px solid #fa593c;
+    color: #fa593c;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 600;
+    transition: all 0.2s ease;
+}
+
+.busqueda-cantidad {
+    color: #888;
+    font-size: 14px;
+    margin-bottom:20px;
+    font-style: italic;
+}
+
+.button {
+   background-color: #fa593c;
+   color:white;
+   border: 2px solid;
+   border-color: black;
+   display: flex;
+   position:absolute;
+   border-radius: 8px;
+   margin-top: 23px;
+   margin-left: 1000px;
+   padding: 10px 20px;
+   font-weight: 600;
+   cursor: pointer;
+}
+
+.span-centered {
+    text-align: center;
+}
+
+.filtro-btn:hover,
+.filtro-btn.active {
+    background-color: #fa593c;
+    color: white;
+}
+
+.productos-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24;
+}
+
+.producto-card {
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.18);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.producto-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+}
+
+.producto-imagen-wrapper {
+   position: relative;
+   width: 100%;
+   height: 180px;
+   overflow: hidden;
+}
+
+.producto-imagen {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: tranform 0.3s ease;
+}
+
+.producto-card:hover, .producto-imagen {
+    transform: scale(1.05);
+}
+
+.producto-categoria-badge {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background-color: #fa593c;
+    color: white;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 3px 8px;
+    border-radius: 12px;
+}
+
+.producto-info {
+    padding: 14px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.producto-nombre {
+    font-size: 13px;
+    color: #888;
+    margin: 0;
+    line-height: 1.4;
+    padding: 10px;
+    border: 2px solid bisque;
+    border-radius: 5px;
+    margin: auto;
+    background-color: lightblue;
+}
+
+.producto-precio-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 4px;
+}
+
+.producto-precio-original {
+    font-size: 20px;
+    font-weight: 700;
+    color: black;
+}
+
+.producto-precio-premium small {
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.producto-stock {
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.producto-stock.disponible { color: #27ae60 }
+.producto-stock.agotado { color: #e74c3c }
+
+.producto-acciones {
+    padding: 12px 14px;
+    display: flex;
+    align-items: stretch;
+    gap: 8px;
+    border-top: 1px solid #f0f0f0;
+}
+
+.producto-acciones form  {
+    display: flex;
+    flex: 1;
+}
+
+.btn-detalle {
+    flex: 2;
+    text-align: center;
+    padding: 8px;
+    border-radius: 6px;
+    border: 2px solid #343f44;
+    color: #343f44;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 600;
+    transition: all 0.2s ease;
+}
+
+.btn-detalle:hover {
+    background-color: #343f44;
+    color: white;
+}
+
+.btn-agregar {
+    flex: 1;
+    padding: 8px;
+    border-radius: 6px;
+    border: none;
+    margin-top: 3px;
+    background-color: #fa593c;
+    color: white;
+    font-size: 13px;
+    text-align: center;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.btn-agregar:hover {
+    background-color: #e04828;
+}
+
+.catalogo-vacio {
+    text-align: center;
+    padding: 60px 20px;
+    color: #888;
+    font-size: 18px;
+}
+
+@media (max-width: 900px) {
+    .productos-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 560px) {
+    .productos-grid {
+        grid-template-columns: 1fr;
+    }
+}

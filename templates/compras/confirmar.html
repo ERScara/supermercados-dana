@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/checkout.css' %}">
+{% endblock %}
+
+{% block title %}Compra confirmada - Dana{% endblock %}
+
+{% block content %}
+<div class="confirmar-wrapper">
+    <div class="confirmar-icono"> &#9989;</div>
+    <h1>¡Compra confirmada!</h1>
+    <p class="confirmar-subtitulo">
+        Gracias por comprar en Supermercados Dana.
+    </p>
+    <div class="confirmar-detalle">
+        <div class="confirmar-fila">
+            <span>Número de orden</span>
+            <strong>#{{ compra_id }}</strong>
+        </div>
+        <div class="confirmar-fila">
+            <span>Fecha</span>
+            <strong>{{ compra.fecha|date:"d/m/Y H:i" }}</strong>
+        </div>
+        <div class="confirmar-fila">
+            <span>Tarjeta</span>
+            <strong>**** **** **** {{ compra.ultimos_4_digitos }}</strong>
+        </div>
+        <div class="confirmar-fila">
+            <span>Estado</span>
+            <strong class="estado-aprobada">{{ compra.get_estado_display }}</strong>
+        </div>
+    </div>
+    <h2>Detalle de la orden</h2>
+
+    {% for item in items %}
+    <div class="confirmar-item">
+        <span>{{ item.producto.nombre }} &times; {{ item.cantidad }}</span>
+        <span>${{ item.subtotal }}</span>
+    </div>
+    {% endfor %}
+
+    <hr>
+    <div class="confirmar-total">
+        <span>Total pagado</span>
+        <strong>${{ compra.total }}</strong>
+    </div>
+
+    <div class="confirmar-acciones">
+        <a href="{% url 'productos:lista' %}" class="form-button">
+            Seguir comprando
+        </a>
+        <a href="{% url 'clientes:perfil' %}" class="btn-seguir">
+            Ver mi perfil
+        </a>
+    </div>
+</div>
+{% endblock %}

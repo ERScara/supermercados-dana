@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/carrito.css' %}">
+{% endblock %}
+
+{% block title %}Mi carrito - Dana{% endblock %}
+
+{% block content %}
+<div class="carrito-wrapper">
+    <h1>Mi Carrito</h1>
+    <hr>
+
+    {% if items %}
+    <div class="carrito-body">
+        <div class="carrito-items">
+            {% for item in items %}
+            <div class="carrito-item">
+                <div class="carrito-item-imagen">
+                    {% if item.producto.imagen %}
+                    <img src="{{ item.producto.imagen.url }}"
+                        alt="{{ item.producto.nombre }}">
+                    {% else %}
+                    <img src="https://placehold.co/80x80?text=Foto" alt="{{ item.producto.nombre }}">
+                    {% endif %}
+                </div>
+                <div class="carrito-item-info">
+                    <h3>{{ item.producto.nombre }}</h3>
+                    <p class="carrito-item-categoria">
+                        {{ item.producto.categoria.nombre }}
+                    </p>
+                    <p class="carrito-item-precio">
+                        ${{ item.precio_unitario }} c/u
+                    </p>
+                </div>
+                <div class="carrito-item-cantidad">
+                    <form method="POST" action="{% url 'carrito:actualizar' item.producto.id %}">
+                        {% csrf_token %}
+                        <button type="submit" name="action" value="restar" class="cantidad-btn">-</button>
+                        <span class="cantidad-valor">{{ item.cantidad }}</span>
+                        <button type="submit" name="action" value="sumar" class="cantidad-btn">+</button>
+                    </form>
+                </div>
+                <div class="carrito-item-eliminar">
+                    <form method="POST" action="{% url 'carrito:eliminar' item.producto.id %}">
+                        {% csrf_token %}
+                        <botton type="submit" class="btn-eliminar">&times;</botton>
+                    </form>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="carrito-resumen">
+            <h2>Resumen</h2>
+            <hr>
+            <div class="resumen-linea">
+                <span>Productos ({{ carrito.cantidad_items }})</span>
+                <span>${{ carrito.total }}</span>
+            </div>
+            {% if request.user.is_authenticated %}
+            {% with cliente=request.user.cliente %}
+            {% if cliente.es_cliente_premium %}
+            <div class="resumen-linea descuento">
+                <span>&#127775; Descuento Premium 30%</span>
+                <span>aplicado</span>
+            </div>
+            {% endif %}
+            {% endwith %}
+            {% endif %}
+            <hr>
+            <div class="resumen-total">
+                <span>Total</span>
+                <strong>${{ carrito.total }}</strong>
+            </div>
+            <a href="{% url 'compras:checkout' %}" class="btn-checkout">
+                Proceder al pago
+            </a>
+            <a href="{% url 'productos:lista' %}" class="btn-seguir">
+                &#8592; Seguir comprando
+            </a>
+        </div>
+    </div>
+    {% else %}
+    <div class="carrito-vacio">
+        <p>Tu carrito está vacío.</p>
+        <a href="{% url 'productos:lista' %}" class="form-button">
+            Ver productos
+        </a>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

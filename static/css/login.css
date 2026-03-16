@@ -1,0 +1,146 @@
+.login-form {
+    display: flex;
+    flex-direction:column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    min-height:60vh;
+    padding: 20px;
+}
+
+h3 {
+    align-items: center;
+    font-size: 40px;
+    display: table;
+    color: black;
+    padding: 10px;
+    border: 2px solid bisque;
+    border-radius: 5px;
+    margin: auto;
+    background-color: lightblue;
+}
+
+.soporte-textarea {
+    padding: 10px;
+    border-radius: 8px;
+    background-color: antiquewhite;
+    border-radius: 5px;
+    margin: 0 auto;
+    width: 200%;
+    max-width:500px;
+    height: 200px;
+    resize: vertical;
+}
+
+#gap-textarea {
+   margin-left: -90px;
+}
+
+#gap-email {
+    margin-left: -62px;
+}
+
+.soporte-textarea:focus {
+    border-color: #fa593c;
+    outline: none;
+}
+
+#char-counter {
+    font-size: 13px;
+    color: #888;
+    display: flex;
+    text-align: left;
+    letter-spacing:1px;
+    gap:2px;
+    width: 100px;
+    margin-top: 4px;
+}
+
+.soporte-exito {
+    text-align: center;
+    padding: 40px 20px;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.soporte-exito h2 {
+    color: #27ae60;
+    font-size: 24px;
+    margin-bottom: 15px;
+}
+
+.soporte-exito p {
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.invalid-feedback {
+    color: #fa593c;
+    font-size: 15px;
+    text-align: left;
+    margin-left: 120px;
+    margin-right: 120px;
+    margin-top: 5px;
+}
+
+em {
+    text-align: center;
+    color: lightcoral;
+}
+
+.login-form a {
+    color : red;
+    text-decoration: none;
+} 
+
+.is-invalid {
+    border: 2px solid #fa593c;
+}
+
+.form-input label {
+    font-weight: 600;
+    font-style: bold;
+    font-size: 18px;
+}
+
+.bouton {
+   background-color: #fa593c;
+   color:white;
+   border: 2px solid;
+   border-color: black;
+   display: flex;
+   border-radius: 8px;
+   padding: 10px 20px;
+   font-weight: 600;
+   cursor: pointer;
+}
+
+#gap-label {
+    margin-left: 25px;
+}
+
+#account-pass {
+    margin-left: -65px;
+}
+
+#gaps {
+    margin-left:-2px;
+}
+
+.form-input input {
+    width: 250px;
+    padding-left: 5px;
+    padding-right: 5px;
+    margin-left: 17px;
+    border-radius: 5px;
+}
+
+.login-form p {
+    text-align: center;
+}
+
+.form-errors {
+    text-align: center;
+    margin-bottom: 10px;
+}

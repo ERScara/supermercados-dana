@@ -1,0 +1,119 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Mi Perfil - Dana{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static '/css/perfil.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="perfil-wrapper">
+    <div>
+        <img src="{{ cliente.get_avatar_url }}" alt="Avatar de {{ request.user.username }}" class="perfil-avatar"> 
+    </div>
+    <div>
+        <h2>
+            {{ request.user.get_full_name|default:request.user.username }}
+            {% if cliente.es_cliente_premium %}
+            <span>&#127775; Premium</span>
+            {% else %}
+            <span class="badge-regular">Regular</span>
+            {% endif %}
+        </h2>
+        <p class="perfil-username">@{{ request.user.username }}</p>
+        <p class="perfil-saldo">
+            Saldo a favor: <strong>${{ cliente.saldo_a_favor }}</strong>
+        </p>
+        {% if not cliente.es_cliente_premium %}
+        <form method="POST" action="{% url 'clientes:hacerse_premium' %}">
+            {% csrf_token %}
+            <button type="submit" class="form-button">
+                &#127775; Hazte Premium
+            </button>
+        </form>
+        {% else %}
+        <span class="badge-premium">&#127775; Ya eres cliente Premium</span>
+        {% endif %}
+    </div>
+</div>
+
+<hr>
+
+<div class="perfil-body">
+    <div>
+       <h3>| Edita tus datos |</h3>
+       <br>
+       <form method="POST" action="{% url 'clientes:perfil' %}" enctype="multipart/form-data">
+          {% csrf_token %}
+          <br>
+          <div class="form-imput">
+              <label>Nombre: </label>
+              <input type="text" name="first_name" class="perfil-input" value="{{ form.first_name.value|default:'' }}">
+          </div>
+          <br>
+          <div class="form-input">
+            <label>Apellido: </label>
+            <input type="text" name="last_name" class="perfil-input" value="{{ form.last_name.value|default:'' }}">
+          </div>
+          <br>
+          <div>
+            <label>Correo Electrónico: </label>
+            <input type="email" name="email" class="perfil-input {% if forms.email.errors %}is-invalid{% endif %}" value="{{ form.email.value|default:'' }}">
+          {% if form.email.errors %}
+          <em><small>{{ form.email.errors|join:', ' }}</small></em>
+          {% endif %}
+          </div>
+          <div class="form-input">
+            <label>Edad: </label>
+            <input type="number" name="edad" class="perfil-input" min="0" max="120" value="{{ form.edad.value|default:'' }}">
+          </div>
+          <div class="avatar">
+             <label>Avatar:</label>
+             <input type="file" name="avatar" class="perfil-input" accept="image/*">
+             <small>Formatos aceptados: JPG, PNG, WebP</small>
+          </div>
+          <div class="perfil-preferencias">
+            <h4>Tus categorías favoritas</h4>
+            <div class="preferencias">
+                {% for categoria in form.preferencias %}
+                <label>
+                    {{ categoria.tag }}
+                    {{ categoria.choice_label }}
+                </label>
+                {% endfor %}
+            </div>
+          </div>
+          <br>
+          <button type="submit" class="form-button">Guardar Cambios</button>
+       </form>
+    </div>
+     <div>
+         <span><h3>Últimas compras</h3></span>
+         {% if historial %}
+         <table class="historial-table">
+            <thead>
+                <tr>
+                  <th>Orden</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for compra in historial %}
+                <tr>
+                    <td>#{{ compra.id }}</td>
+                    <td>{% for item in compra.items.all %}
+                          {{ item.producto.nombre}} &times; {{ item.cantidad }} <br>
+                        {% endfor %}
+                    </td>
+                    <td>${{ compra.total }}</td>
+                    <td>{{ compra.fecha|date:"d/m/Y" }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+         </table>
+         {% else %}
+         <p class="perfil-empty">Todavía no realizaste ninguna compra. </p>
+         {% endif %}
+       </div>
+</div>
+{% endblock %}

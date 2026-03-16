@@ -1,0 +1,180 @@
+.checkout-wrapper {
+    max-width: 900px;
+    margin:30px auto;
+    padding: 0 20px;
+}
+
+.checkout-wrapper h1 {
+    font-size: 28px;
+    color: #343f44;
+    margin-bottom: 10px;
+}
+
+.checkout-body {
+    display: grid;
+    grid-template-columns: 1fr 320px;
+    gap: 30px;
+    margin-top: 20px;
+}
+
+.checkout-form-section h2 {
+    font-size: 20px;
+    color: #343f44;
+    margin-bottom: 10px;
+}
+
+.checkout-aviso {
+    background-color: #fff3cd;
+    border: 1px solid #ffc107;
+    border-radius: 6px;
+    padding: 10px 14px;
+    font-size: 13px;
+    color: #856404;
+    margin-bottom: 20px;
+}
+
+.checkout-input {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 15px;
+    margin-top: 4px;
+    box-sizing: border-box;
+    transition: border-color 0.2s ease;
+    font-family: inherit;
+}
+
+.checkout-input:focus {
+    border-color: #fa593c;
+    outline: none;
+}
+
+.checkout-input-sm {
+    width: 120px;
+}
+
+.checkout-fila {
+    display: flex;
+    gap: 16px;
+}
+
+.btn-pagar {
+    width: 100%;
+    margin-top: 20px;
+    justify-content: center;
+    font-size: 16px;
+    padding: 14px;
+}
+
+.checkout-resumen {
+    background-color: white;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    height:fit-content;
+    position: sticky;
+    top: 20px;
+}
+
+.checkout-resumen h2 {
+    font-size: 18px;
+    color: #343f44;
+    margin-bottom: 10px;
+}
+
+.checkout-input {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    color: #555;
+    padding: 6px 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.checkout-total {
+    display: flex;
+    justify-content: space-between;
+    font-size: 18px;
+    color: #343f44;
+    margin-top: 12px;
+}
+
+.confirmar-wrapper {
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 0 20px;
+    text-align: center;
+}
+
+.confirmar-icono {
+    font-size: 64px;
+    margin-bottom: 16px;
+}
+
+.confirmar-wrapper h1 {
+    font-size: 32px;
+    color: #27ae60;
+    margin-bottom: 8px;
+}
+
+.confirmar-subtitulo {
+    color: #888;
+    font-size: 16px;
+    margin-bottom: 30px;
+}
+
+.confirmar-detalle {
+    background-color: white;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.confirmar-fila {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px solid #f0f0f0;
+    font-size: 15px;
+}
+
+.estado-aprobada {
+    color: #27ae60;
+}
+
+.confirmar-item {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    color: #555;
+    padding: 6px 0;
+}
+
+.confirmar-total {
+    display: flex;
+    justify-content: space-between;
+    font-size: 20px;
+    font-weight: 700;
+    color: #343f44;
+    margin: 12px 0 24px;
+}
+
+.confirmar-acciones {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+}
+
+.btn-seguir {
+    color: #888;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.btn-seguir:hover {
+    color: #fa593c;
+}

@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Crear cuenta - Dana{% endblock %}
+
+{% block content %}
+<br>
+<h3>| Crea tu cuenta |</h3>
+<br>
+
+<section class="login-form">
+    <form method="POST" action="{% url 'clientes:registro' %}">
+        {% csrf_token %}
+        <!-- Usuario -->
+        <div class="form-input">
+            <label for="username" id="gap-label">Usuario: </label>
+            <input type="text"
+                   id="username"
+                   name="username"
+                   placeholder="User1"
+                   value="{{ form.username.value | default:'' }}"
+                   class="{% if form.username.errors %}is-invalid{% endif %}">
+            <br>
+            {% if form.username.errors %}
+                {% for error in form.username.errors %}
+                   <em><small class="invalid-feedback">{{ error }}</small></em>
+                {% endfor %}
+            {% endif %}
+        </div>
+        <br>
+        <!-- Email -->
+        <div class="form-input">
+            <label for="email" id="gap-email">Correo Electrónico: </label>
+            <input type="email"
+                   id="email"
+                   name="email"
+                   placeholder="example@example.com"
+                   value="{{ form.email.value | default:'' }}"
+                   class="{% if form.email.errors %}is-invalid{% endif %}">
+            <br>
+
+            {% if form.email.errors %}
+                {% for error in form.email.errors %}
+                  <em><small class="invalid-feedback">{{ error }}</small></em>
+                {% endfor %}
+            {% endif %}
+        </div>
+        <br>
+        <!-- Contraseña -->
+        <div class="form-input">
+            <label for="password1" id="gaps">Contraseña: </label>
+            <input type="password"
+                   id="password1"
+                   name="password1"
+                   placeholder="**********"
+                   class="{% if form.password1.errors %}is-invalid{% endif %}">
+            <br>
+            {% if form.password1.errors %}
+                 {% for error in form.password1.errors %}
+                   <em><small class="invalid-feedback">{{ error }}</small></em>
+                 {% endfor %}
+            {% endif %}
+        </div>
+        <br>
+        <!-- Repetir Contraseña -->
+        <div class="form-input">
+            <label for="password2" id="account-pass">Repetir Contraseña: </label>
+            <input type="password"
+                   id="password2"
+                   name="password2"
+                   placeholder="************"
+                   class="{% if form.password2.errors %}is-invalid{% endif %}">
+            <br>
+            {% if form.password2.errors %}
+                {% for error in form.password2.errors %}
+                   <em><small class="invalid-feedback">{{ error }}</small></em>
+                {% endfor %}
+            {% endif %}
+        </div>
+        <br>
+        {% if form.non_field_errors %}
+        <div class="form-errors">
+            {% for error in form.non_field_errors %}
+              <em><small class="invalid-feedback">{{ error }}</small></em>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        <button type="submit" class="form-button">Crear</button>
+        <br>
+    </form>
+</section>
+{% endblock %}

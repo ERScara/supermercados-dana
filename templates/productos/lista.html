@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}Productos - Dana{% endblock %}
+
+{% block content %}
+<div class="catalogo-wrapper">
+  <div class="catalogo-header">
+    <h1>Nuestros Productos</h1>
+     <div class="catalogo-filtros">
+       <a href="{% url 'productos:lista' %}" class="filtro-btn {% if not categoria_activa %}active{% endif %}">
+          Todos
+       </a>
+       {% for categoria in categorias %}
+       <a href="{% url 'productos:lista' %}?categoria={{ categoria.id }}" class="filtro-btn {% if categoria_activa.id == categoria.id %}active{% endif %}">
+        {{ categoria.nombre }}
+       </a>
+       {% endfor %}
+     </div>
+    </div>
+    {% if productos %}
+    <div class="productos-grid">
+      {% for producto in productos %}
+      <article class="producto-card">
+        <div class="producto-imagen-wrapper">
+          {% if producto.imagen %}
+          <img src="{{ producto.imagen.url }}" alt="{{ producto.nombre }}" class="producto-imagen">
+          {% else %}
+          <img src="https://placehold.co/300x200?text={{ producto.nombre }}" alt="{{ producto.nombre }}" class="producto-imagen">
+          {% endif %}
+          
+          <span class="producto-categoria-badge">
+            {{ producto.categoria.nombre }}
+          </span>
+        </div>
+        <div class="producto-info">
+          <h3 class="producto-nombre">{{ producto.nombre }}</h3>
+          <p class="producto-descripcion">
+            {{ producto.descripcion|truncatechars:80 }}
+          </p>
+          <div class="producto-precio-wrapper">
+            {% if request.user.is_authenticated and cliente.es_cliente_premium %}
+            <span class="producto-precio-original">
+              ${{ producto.precio }}
+            </span>
+            <span>
+              ${{ producto.precio_con_descuento }}
+              <span>&#127775; Premium</span>
+            </span>
+            {% else %}
+            <span class="producto-precio">
+              ${{ producto.precio }}
+            </span>
+            {% endif %}
+          </div>
+          {% if producto.stock > 0 %}
+          <span class="producto-stock disponible">
+            &#9989; En stock ({{ producto.stock }})
+          </span>
+          {% else %}
+          <span>
+            &#10060; Sin stock de este producto.
+          </span>
+          {% endif %}
+          </div>
+          <div class="producto-acciones">
+            <a href="{% url 'productos:detalle' producto.id %}" class="btn-detalle">
+              Ver detalle
+            </a>
+          {% if producto.stock > 0 %}
+            <form method="POST" action="{% url 'carrito:agregar' producto.id %}">
+              {% csrf_token %}  <!-- Protege de Cross-Site Request Forgery -->
+              <button type="submit" class="btn-agregar">
+                Agregar
+              </button>
+            </form>
+          {% endif %}
+        </div>
+      </article>
+      {% endfor %}
+    </div>
+  {% else %}
+  <div class="span-centered">
+    <span>No se encuentran productos cargados en el catálogo.</span>
+    <a href="{% url 'productos:lista' %}" class="button">
+      Ver todos los productos
+    </a>
+  </div>
+  {% endif %}
+</div>
+{% endblock %}

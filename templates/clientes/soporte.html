@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Solicitud de eliminación de cuenta - Dana{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static '/css/login.css' %}">
+{% endblock %}
+
+{% block content %}
+<br>
+<h3>| Solicitud de eliminación de cuenta |</h3>
+<br>
+<p style="text-align: center;">
+    Contacta al administrador del sitio para eliminar tu cuenta.
+</p>
+<br>
+
+{% if not mensaje_enviado %}
+<section class="login-form">
+    <form method="POST" action="{% url 'clientes:soporte' %}">
+        {% csrf_token %}
+
+        <div class="form-input">
+            <label for="username" id="gap-label">Usuario:</label>
+            <input type="text"
+                   id="username"
+                   name="username"
+                   value="{{ request.user.username }}" readonly>
+        </div>
+        <br>
+
+        <div class="form-input">
+            <label for="email" id="gap-email">Correo electrónico: </label>
+            <input type="email"
+                   id="email"
+                   name="email"
+                   value="{{ request.user.email }}" readonly>
+        </div>
+        <br>
+        <div class="form-input">
+            <textarea name="reason" id="gap-textarea" placeholder="Contanos por qué deseas marcharte..." maxlength="3000" class="soporte-textarea">{{ form.reason.value|default:'' }}</textarea>
+            <br>
+            <small id="char-counter">
+                Caracteres: <span id="char-count">0</span> /3000
+            </small>
+        </div>
+        <br>
+
+        {% if error_message %}
+        <p class="invalid-feedback">{{ error_message }}</p>
+        {% endif %}
+
+        <button type="submit" class="bouton" id="submit-btn">
+            Enviar Solicitud
+        </button>
+        <br>
+    </form>
+</section>
+
+{% else %}
+
+<div class="soporte-exito">
+    <h2>Solicitud enviada con éxito.</h2>
+    <p>La eliminación de la cuenta es definitiva. El administrador 
+       se pondrá en contacto por correo para explicar cualquier 
+       situación o duda que pueda surgirte. Gracias por ser parte 
+       y comprar en Supermercados Dana.</p>
+    <a href="{% url 'productos:inicio' %}" class="form-button">
+        Volver al Inicio
+    </a>
+</div>
+{% endif %}
+{% block extra_js %}
+<script type="text/javascript">
+    const textarea = document.getElementById('gap-textarea')
+    const counter = document.getElementById('char-count')
+
+    if (textarea && counter) {
+        counter.textContent = textarea.value.length;
+        textarea.addEventListener('input', function() {
+            counter.textContent = this.value.length;
+            if (this.value.length >= 2800) {
+                counter.style.color = '#fa593c';
+            } else {
+                counter.style.color = '#888';
+            }
+        });
+    }
+
+    const form = document.querySelector('form');
+    const sumbitBtn = document.getElementById('submit-btn')
+
+    if (form && submitBtn) {
+        form.addEventListener('submit', function() {
+            sumbitBtn.textContent = "Enviando...";
+            submitBtn.disabled = true;
+            submitBtn.style.opacity = '0.7';
+        });
+    }
+</script>
+{% endblock %}
+{% endblock %}

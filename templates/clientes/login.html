@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Iniciar Sesión - Dana{% endblock %}
+
+{% block content %}
+<br>
+<h3>| Ingresa a tu cuenta|</h3>
+<br>
+
+<section class="login-form">
+    <form method="POST" action="{% url 'clientes:login' %}">
+        {% csrf_token %}
+        <div class="form-input">
+            <label for="username" id="gap-label">Usuario: </label>
+            <input type="text" id="username" name="username" autocomplete="username" placeholder="User1"
+              value="{{ form.username.value|default:'' }}" class="{% if form.username.errors %}is-invalid{% endif %}">
+            <br>
+            {% if form.username.errors %}
+                 {% for error in form.username.errors %}
+                   <em><small class="invalid-feedback">{{ error }}</small></em>
+                 {% endfor %}
+            {% endif %}
+        </div>
+        <br>
+        <div class="form-input">
+            <label for="password">Contraseña: </label>
+            <input type="password"
+                   id ="password"
+                   name="password"
+                   autocomplete="current-password"
+                   placeholder="*********"
+                   class="{% if form.password.errors %}is-invalid{% endif %}">
+            <br>
+            {% if form.password.errors %}
+                 {% for error in form.password.errors %}
+                  <em><small class="invalid-feedback" >{{ error }}</small></em>
+                  {% endfor %}
+            {% endif %}
+        </div>
+        <br>
+        {% if form.non_field_errors %}
+        <div class="form-errors">
+           {% for error in form.non_field_errors %}
+           <em><small class="invalid-feedback">{{ error }}</small></em>
+           {% endfor %}
+        </div>
+        {% endif %}
+        <p>¿Todavía no tienes una cuenta? Regístrate 
+            <a href="{% url 'clientes:registro' %}">aquí</a>
+        </p>
+        <p>¿Querrías reestablecer tu contraseña? Ingresa 
+           <a href="{% url 'clientes:reset_password' %}">aquí</a>
+        </p>
+        <br>
+        <button type="submit" class="form-button">Ingresar</button>
+        <br>
+    </form>
+</section>
+{% endblock %}
