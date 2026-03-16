@@ -72,7 +72,7 @@ Supermercados Dana es un proyecto académico que implementa un supermercado loca
 
 ```bash
 # 1. Clonar el repositorio
-git clone https://github.com/tu-usuario/supermercados-dana.git
+git clone https://github.com/ERScara/supermercados-dana.git
 cd supermercados-dana
 
 # 2. Crear y activar el entorno virtual
