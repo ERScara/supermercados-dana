@@ -20,6 +20,13 @@ def agregar(request, producto_id):
         producto = get_object_or_404(Producto, pk=producto_id)
         cliente = get_object_or_404(Cliente, usuario=request.user)
         carrito, _ = Carrito.objects.get_or_create(cliente=cliente)
+
+        try: 
+            cantidad = int(request.POST.get('cantidad', 1))
+        except ValueError:
+            cantidad = 1
+
+        cantidad = max(1, min(cantidad, producto.stock))
         
         if cliente.es_cliente_premium:
             precio = producto.precio_con_descuento
@@ -29,13 +36,13 @@ def agregar(request, producto_id):
         item, creado = ItemCarrito.objects.get_or_create(
             carrito=carrito,
             producto=producto,
-            defaults={'precio_unitario': precio, 'cantidad': 1}
+            defaults={'precio_unitario': precio,'cantidad': cantidad }
         )
 
         if not creado:
-            if item.cantidad < producto.stock:
-                item.cantidad += 1
-                item.save()
+            nueva_cantidad = item.cantidad + cantidad
+            item.cantidad = min(nueva_cantidad, producto.stock)
+            item.save()
 
     return redirect('carrito:ver')
 
@@ -64,7 +71,7 @@ def actualizar_cantidad(request, producto_id):
             carrito=carrito,
             producto__id=producto_id
         )
-        accion = request.POST.get('accion')
+        accion = request.POST.get('action')
 
         if accion == 'sumar' and item.cantidad < item.producto.stock:
             item.cantidad += 1

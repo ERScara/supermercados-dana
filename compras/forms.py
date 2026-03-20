@@ -26,7 +26,7 @@ class CheckoutForm(forms.Form):
         label='Vencimiento',
         widget=forms.TextInput(attrs={
             'placeholder': 'MM/AA',
-            'class': 'checkout-input checkout-input-sm',
+            'class': 'checkout-input-boxes checkout-input-sm',
             'autocomplete': 'cc-exp',
             'max-length': '5',
             'id': 'vencimiento'
@@ -37,7 +37,7 @@ class CheckoutForm(forms.Form):
         label='CVV',
         widget=forms.TextInput(attrs={
             'placeholder': '123',
-            'class': 'checkout-input checkout-input-sm',
+            'class': 'checkout-input-boxes checkout-input-sm',
             'autocomplete': 'cc-csc',
             'maxlength': '4',
             'id': 'cvv',

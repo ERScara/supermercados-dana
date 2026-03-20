@@ -80,9 +80,9 @@
                     {% if producto.stock > 0 %}
                        <form method="POST" action="{% url 'carrito:agregar' producto.id %}">
                         {% csrf_token %}
-                        <botton type="submit" class="btn-agregar">
+                        <button type="submit" class="btn-agregar">
                             Agregar
-                        </botton>
+                        </button>
                        </form>
                     {% endif %}
                 </div>
@@ -91,7 +91,7 @@
         </div>
         {% else %}
         <div>
-            <p>No se encontraron productos para <strong>{{ query }}</strong></p>
+            <p>No se encontraron productos para <strong>{{ query }}</strong>...</p>
             <a href="{% url 'productos:lista' %}" class="button">
                 Ver todos los productos
             </a>

@@ -5,10 +5,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>{% block title %}
-                 Supermercados Dana
-               {% endblock %}
-        </title>
+        <title>{% block title %}Supermercados Dana{% endblock %}</title>
         <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
         {% block extra_css %}
         <link rel="stylesheet" href="{% static 'css/perfil.css' %}">
@@ -25,7 +22,6 @@
             {% block content %}
             {% endblock %}
         </main>
-
-        <!-- <script type="text/javascript" src="{% static 'js/main.js' %}"></script> -->
+        {% block extra_js %}{% endblock %}
     </body>
 </html>

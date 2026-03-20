@@ -25,12 +25,17 @@
             {% if producto.imagen %}
             <img src="{{ producto.imagen.url }}"
                  alt="{{ producto.nombre }}"
-                 class="detalle-imagen">
+                 class="detalle-imagen"
+                 id="imagen-detalle">
             {% else %}
-            <img src="https://placehold.co/600x400?text={{ producto.nombre}}"
+            <img src="https://placehold.co/600x400?text={{ producto.nombre }}"
                  alt="{{ producto.nombre }}"
-                 class="detalle-imagen">
+                 class="detalle-imagen"
+                 id="imagen-detalle">
             {% endif %}
+            <button type="button" class="btn-rotar" id="btn-rotar" title="Girar imagen">
+                &#8635; Girar
+            </button>
         </div>
 
         <div class="detalle-info">
@@ -45,7 +50,7 @@
                 <span class="detalle-precio-original">
                     ${{ producto.precio }}
                 </span>
-                <span class="detalle-precio-premium">
+                <span class="detalle-precio-premium" style="color: #343f44">
                     ${{ producto.precio_con_descuento}}
                 </span>
                 <span class="badge-premium">
@@ -53,8 +58,9 @@
                 </span>
                 {% else %}
                 <span class="detalle-precio">
-                    ${{ productos.precio }}
+                    ${{ producto.precio }}
                 </span>
+                <br>
                 {% if not request.user.is_authenticated %}
                 <small class="detalle-premium-hint">
                     <a href="{% url 'clientes:login' %}">Inicia Sesión</a> para ver precios Premium   &#127775;
@@ -75,7 +81,7 @@
             </div>
             <div class="detalle-descripcion">
                 <h3>Descripción</h3>
-                <p>{{ producto.descripcion }}</p>
+                <p style="text-align:justify; text-justify:newspaper;">{{ producto.descripcion }}</p>
             </div>
             <div class="detalle-acciones">
                 {% if producto.stock > 0 %}
@@ -97,10 +103,9 @@
                 </form>
                 {% else %}
                 <button disabled class="btn-agregar-detalle">
-                    &#10060; Sin stock
+                    Sin stock
                 </button>
                 {% endif %}
-
                 <a href="{% url 'productos:lista' %}" class="btn-volver">
                    &#8592; Volver al catálogo
                 </a>
@@ -108,4 +113,28 @@
         </div>
     </div>
 </div>
+{% endblock %}
+{% block extra_js %}
+<script type="text/javascript">
+    document.addEventListener('DOMContentLoaded', function(){
+        const imagen = document.getElementById('imagen-detalle');
+        const btnRotar = document.getElementById('btn-rotar');
+        const wrapper = imagen?.closest('.detalle-imagen-wrapper');
+        let rotacion = 0;
+        
+        if (imagen && btnRotar) {
+            btnRotar.addEventListener('click', function() {
+                rotacion = (rotacion + 90) % 360;
+                imagen.style.transform = `rotate(${rotacion}deg)`;
+                if (rotacion === 90 || rotacion === 270) {
+                    const alturaImagen = imagen.offsetHeight;
+                    wrapper.styleminHeight = `${alturaImagen + 80}px`;
+                } else {
+                    wrapper.style.minHeight = '';
+                }
+            });
+        }
+    });
+</script>
+
 {% endblock %}

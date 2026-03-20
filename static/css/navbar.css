@@ -1,16 +1,18 @@
-.search-box {
+.global-search-box {
     padding: 10px;
     position: absolute;
     display: inline-flex;
     flex-direction: column;
     z-index: 1000;
+    top: 28%;
     margin-left: 0;
     margin-bottom: 30px;
-    width: 280px;
+    width: 480px;
     background: white;
     border-radius: 8px;
     box-shadow: 0 5px 15px rgba(0,0,0,0.3);
 }
+
 
 h1 {
     text-align: center;
@@ -19,7 +21,7 @@ h1 {
 
 span {
    font-style: italic;
-   text-decoration: underline;
+   text-decoration: none;
 }
 
 .logo-intro {
@@ -37,7 +39,7 @@ hr {
     border: none; 
     height: 3px; 
     background-color: #333; 
-    width: 70%;
+    width: 90%;
 }
 
 table {
@@ -137,6 +139,13 @@ li {
     height: 40px;
 }
 
+.search-item {
+    background-color: lightgray;
+    border-bottom: 1px solid black;
+    border-radius: 0 0 8px 8px;
+    padding: 5px 10px;
+}
+
 .global-search {
     flex: 1;
     width: 500px;
@@ -146,7 +155,7 @@ li {
     color: black;
     font-size: 21px;
     padding: 7px;
-    box-sizing: boder-box;
+    box-sizing: border-box;
     margin: 0 auto;
     border: none;
     box-shadow: 0 -3px 8px rgba(0,0,0,0.3);
@@ -199,17 +208,9 @@ li {
     margin-top: 40px;
     padding: 10px 20px;
     margin-bottom: 20px;
+    text-decoration: none;
+    color: inherit;
     transition: background-color 0.2s ease, color 0.2s ease;
-    &:hover {
-        background-color: bisque;
-        border-radius: 19px;
-        color: #fa593c;
-    }
-}
-
-.menu li {
-    margin-right: 40px;
-    font-weight: 600;
 }
 
 a {
@@ -217,6 +218,18 @@ a {
     color: inherit;
 }
 
+.menu li:not(#align) a.active {
+    background-color: #fa593c;
+    border-radius: 6px;
+}
+
+#cuenta { background-color: gold; border-radius: 6px; }
+#registro { background-color: gold; border-radius: 6px; }
+
+.menu li {
+    margin-right: 40px;
+    font-weight: 600;
+}
 
 #init {
     color: beige;
@@ -255,7 +268,7 @@ body {
    border-color: black;
    position: relative;
    display: flex;
-   margin-left: 250px;
+   margin-left: 240px;
    border-radius: 8px;
    padding: 10px 20px;
    font-weight: 600;

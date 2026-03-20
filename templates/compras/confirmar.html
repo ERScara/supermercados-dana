@@ -14,10 +14,11 @@
     <p class="confirmar-subtitulo">
         Gracias por comprar en Supermercados Dana.
     </p>
+    <hr>
     <div class="confirmar-detalle">
         <div class="confirmar-fila">
             <span>Número de orden</span>
-            <strong>#{{ compra_id }}</strong>
+            <strong>#{{ compra.id }}</strong>
         </div>
         <div class="confirmar-fila">
             <span>Fecha</span>
@@ -32,6 +33,7 @@
             <strong class="estado-aprobada">{{ compra.get_estado_display }}</strong>
         </div>
     </div>
+    <hr>
     <h2>Detalle de la orden</h2>
 
     {% for item in items %}
@@ -42,6 +44,29 @@
     {% endfor %}
 
     <hr>
+
+    <h2>Ahorro</h2>
+   
+    {% for item in items %}
+        <div class="confirmar-precios {% if item.tiene_descuento %}item-descuento{% endif %}">
+            <span>Nombre del producto: {{ item.producto.nombre }}</span>
+            <span>Cantidad: {{ item.cantidad }}</span>
+            <span>Precio original unitario: ${{ item.producto.precio }}</span> 
+            <span>Precio con descuento: ${{ item.precio_unitario }} c/u</span>
+            <span>&#127775; Premium</span>
+
+            {% with total_ahorro=compra.ahorro_total %}
+            <div style="background-color:whitesmoke; border-radius: 6px; display: table; margin: auto; padding:10px 20px; margin-top: 5px;">
+                <span>Ahorraste: ${{ item.ahorro|floatformat:2 }}</span>
+            </div>
+            {% endwith %}
+        </div>
+         <br>
+    {% endfor %}
+    <h3>Total ahorrado: ${{ compra.ahorro_total|floatformat:2 }}</h3>
+    <small style="text-align: center;">Se aplica un descuento del 30%</small>
+    
+    <hr>
     <div class="confirmar-total">
         <span>Total pagado</span>
         <strong>${{ compra.total }}</strong>
@@ -51,7 +76,7 @@
         <a href="{% url 'productos:lista' %}" class="form-button">
             Seguir comprando
         </a>
-        <a href="{% url 'clientes:perfil' %}" class="btn-seguir">
+        <a href="{% url 'clientes:perfil' %}" class="form-button">
             Ver mi perfil
         </a>
     </div>

@@ -41,7 +41,7 @@
         <div class="form-input">
             <textarea name="reason" id="gap-textarea" placeholder="Contanos por qué deseas marcharte..." maxlength="3000" class="soporte-textarea">{{ form.reason.value|default:'' }}</textarea>
             <br>
-            <small id="char-counter">
+            <small id="char-counter" style="margin-left: -450px;">
                 Caracteres: <span id="char-count">0</span> /3000
             </small>
         </div>
@@ -51,22 +51,27 @@
         <p class="invalid-feedback">{{ error_message }}</p>
         {% endif %}
 
-        <button type="submit" class="bouton" id="submit-btn">
+        <button type="submit" class="bouton" id="submit-btn" style="justify-self:center;">
             Enviar Solicitud
         </button>
         <br>
     </form>
+    <a href="{% url 'productos:inicio' %}" class="bouton" style="color: white; margin-right: auto;">
+        &#8592; Volver al inicio
+    </a>
 </section>
 
 {% else %}
 
 <div class="soporte-exito">
+    <div class="confirmar-icono"> &#9989;</div>
     <h2>Solicitud enviada con éxito.</h2>
-    <p>La eliminación de la cuenta es definitiva. El administrador 
+    <p style="text-align: justify; text-justify: newspaper;">La eliminación de la cuenta es definitiva. El administrador 
        se pondrá en contacto por correo para explicar cualquier 
-       situación o duda que pueda surgirte. Gracias por ser parte 
-       y comprar en Supermercados Dana.</p>
-    <a href="{% url 'productos:inicio' %}" class="form-button">
+       situación o duda que pueda surgirte. Gracias por comprar 
+       en Supermercados Dana. Esperamos volverte a ver nuevamente 
+       en el futuro.</p>
+    <a href="{% url 'productos:inicio' %}" class="bouton" style="display:table; justify-self: center;">
         Volver al Inicio
     </a>
 </div>

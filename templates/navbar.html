@@ -14,21 +14,21 @@
         </a>
      </li>
      <li>
-        <a href="{% url 'carrito:ver' %}"
+        <a href="{% url 'carrito:ver' %}" 
          class="{% if request.path == '/carrito/' %}active{% endif %}">
          Compras
         </a>
      </li>
      {% if request.user.is_authenticated %}
      <li>
-       <a href="{% url 'clientes:perfil' %}"
+       <a href="{% url 'clientes:perfil' %}" id="cuenta"
          class="{% if request.path == '/perfil/' %}active{% endif %}">
          Mi Cuenta
         </a>
      </li>
      {% else %}
      <li>
-       <a href="{% url 'clientes:login' %}"
+       <a href="{% url 'clientes:registro' %}" id="registro"
         class="{% if request.path == '/registro/' %}active{% endif %}">
          Registrarse 
        </a>
@@ -52,8 +52,8 @@
         <p class="user">
             Ingresa a tu cuenta
         </p>
-        <a href="{% url 'clientes:login' %}">
-            <button type="button" class="nav-button">Ingresar</button>
+        <a href="{% url 'clientes:login' %}" class="nav-button">
+            Ingresar
         </a>
         {% endif %}
     </div>
@@ -62,18 +62,16 @@
 <nav>
     <div class="search">
         <form method="GET" action="{% url 'productos:buscar' %}" class="search-form">
-            <input type="search" name="q" class="global-search" placeholder="Buscar productos..." value="{{ request.GET.q }}">
+            <input type="search" name="q" class="global-search" placeholder="Buscar productos..." value="{{ query_global }}">
             <button type="submit" class="search-button">Buscar</button>
         </form>
         {% if resultados_busqueda  %}
         <div class="global-search-box">
             <span><b>Resultados:</b></span>
             {% for producto in resultados_busqueda %}
-            <div class="search-item">
-                <a href="{% url 'productos:detalle' producto.id %}">
-                    {{ producto.nombre }} - ${{ producto.precio }}
-                </a>
-            </div>
+            <a href="{% url 'productos:detalle' producto.id %}" class="search-item">
+                {{ producto.nombre }} - ${{ producto.precio }} - Stock: {{ producto.stock }}
+            </a>
             {% empty %}
             <span>No se encontraron productos. </span>
             {% endfor %}

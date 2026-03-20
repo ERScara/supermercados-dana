@@ -1,15 +1,15 @@
 .perfil-wrapper {
-    max-width: 600px;
-    width: 70%;
+    max-width: 700px;
+    width: 90%;
     margin: 40px auto;
     padding: 20px;
-    background-color: white;
+    background-color: ivory;
     border-radius: 12px;
     box-shadow: 0 4px 16px rgba(0,0,0,0.1)
 }
 
 .perfil-header {
-    display:block;
+    display:flex;
     flex-direction:column;
     align-items: center;
     gap: 30px;
@@ -18,6 +18,9 @@
 
 .perfil-avatar-wrapper {
     flex-shrink: 0;
+    display: flex;
+    flex-direction: center;
+    width: 100%;
 }
 
 .perfil-avatar {
@@ -26,6 +29,7 @@
     border-radius: 50%;
     margin: 0 auto;
     object-fit: cover;
+    display: block;
     border: 4px solid #fa593c;
     box-shadow: 0 2px 8px rgba(0,0,0,0.2)
 }
@@ -44,9 +48,14 @@
 }
 
 .perfil-username {
-    color: #888;
+    color: #343f44;
     font-size: 14px;
     margin-bottom:8px;
+    background-color: #ccc;
+    display: table;
+    margin: auto;
+    padding: 5px 5px;
+    border-radius: 6px;
 }
 
 .perfil-saldo {
@@ -55,12 +64,13 @@
 }
 
 .badge-premium {
-    background-color: #f1c40f;
+    background-color: #f7de7a;
     color: #333;
     padding: 3px 10px;
     border-radius: 20px;
     font-size: 14px;
     font-weight: 600;
+    margin-left: 500px;
 }
 
 .badge-regular {
@@ -71,12 +81,18 @@
     font-size: 14px;
 }
 
+.centered {
+    text-align: center;
+}
+
 .perfil-body {
     display: grid;
+    padding: 20px 20px;
     align-items:center;
     grid-template-columns: 1fr 1fr;
     gap: 30px;
     margin: 20px auto;
+    align-items: start;
 }
 
 .perfil-form-section h3,
@@ -174,7 +190,7 @@ h3 {
     gap: 8px;
 }
 
-.preferencias-item {
+.preferencia-item {
     display: flex;
     align-items: center;
     gap: 8px;
@@ -185,12 +201,11 @@ h3 {
     transition: background-color 0.2s ease;
 }
 
-.preferencia-item:hover {
-    background-color: bisque;
-}
 
 .historial-table {
-    width: 100%;
+    width: 40%;
+    justify-self: left;
+    margin-left: 53px;
     border-collapse: collapse;
     font-size: 14px; 
 }
@@ -202,8 +217,25 @@ h3 {
     text-align: left;
 }
 
-.historial-table-tr:hover td {
-    background-color: bisque;
+.form-input {
+    gap: 6px;
+    justify-items: left;
+    margin: auto;
+}
+
+.form-input label {
+    font-weight: 600;
+    font-style: bold;
+    font-size: 18px;
+    margin: auto;
+}
+
+.form-input input {
+    width: 250px;
+    padding-left: 5px;
+    padding-right: 5px;
+    margin-left: 17px;
+    border-radius: 5px;
 }
 
 .perfil-empty {

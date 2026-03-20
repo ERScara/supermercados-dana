@@ -13,7 +13,7 @@
         <img src="{{ cliente.get_avatar_url }}" alt="Avatar de {{ request.user.username }}" class="perfil-avatar"> 
     </div>
     <div>
-        <h2>
+        <h2 class="centered">
             {{ request.user.get_full_name|default:request.user.username }}
             {% if cliente.es_cliente_premium %}
             <span>&#127775; Premium</span>
@@ -48,34 +48,34 @@
           {% csrf_token %}
           <br>
           <div class="form-imput">
-              <label>Nombre: </label>
-              <input type="text" name="first_name" class="perfil-input" value="{{ form.first_name.value|default:'' }}">
+              <label style="font-weight: 600; font-size: 18px;">Nombre: </label>
+              <input type="text" name="first_name" class="perfil-input" value="{{ form.first_name.value|default:'' }}" style="width: 40%; margin-top: 15px; margin-left: 130px;">
           </div>
           <br>
           <div class="form-input">
             <label>Apellido: </label>
-            <input type="text" name="last_name" class="perfil-input" value="{{ form.last_name.value|default:'' }}">
+            <input type="text" name="last_name" class="perfil-input" value="{{ form.last_name.value|default:'' }}" style="width: 40%; margin-top: 15px; margin-left: 125px;">
           </div>
           <br>
-          <div>
+          <div class="form-input">
             <label>Correo Electrónico: </label>
-            <input type="email" name="email" class="perfil-input {% if forms.email.errors %}is-invalid{% endif %}" value="{{ form.email.value|default:'' }}">
+            <input type="email" name="email" class="perfil-input {% if forms.email.errors %}is-invalid{% endif %}" value="{{ form.email.value|default:'' }}" style="width: 50%; margin-top: 15px; margin-left: 45px;">
           {% if form.email.errors %}
           <em><small>{{ form.email.errors|join:', ' }}</small></em>
           {% endif %}
           </div>
           <div class="form-input">
             <label>Edad: </label>
-            <input type="number" name="edad" class="perfil-input" min="0" max="120" value="{{ form.edad.value|default:'' }}">
+            <input type="number" name="edad" class="perfil-input" min="0" max="120" value="{{ form.edad.value|default:'' }}" style="width:10%; margin-top: 15px; margin-left: 150px;">
           </div>
           <div class="avatar">
-             <label>Avatar:</label>
+             <label style="font-weight: 600; font-size: 18px;">Avatar:</label>
              <input type="file" name="avatar" class="perfil-input" accept="image/*">
              <small>Formatos aceptados: JPG, PNG, WebP</small>
           </div>
           <div class="perfil-preferencias">
             <h4>Tus categorías favoritas</h4>
-            <div class="preferencias">
+            <div class="preferencia-item">
                 {% for categoria in form.preferencias %}
                 <label>
                     {{ categoria.tag }}
@@ -85,28 +85,29 @@
             </div>
           </div>
           <br>
-          <button type="submit" class="form-button">Guardar Cambios</button>
+          <button type="submit" class="form-button" style="margin: auto;">Guardar Cambios</button>
        </form>
     </div>
      <div>
-         <span><h3>Últimas compras</h3></span>
+         <span><h3 style="margin-bottom: 15px;">Últimas compras</h3></span>
          {% if historial %}
          <table class="historial-table">
             <thead>
                 <tr>
-                  <th>Orden</th>
+                  <th style="text-align: center;">Compra</th>
                 </tr>
             </thead>
             <tbody>
                 {% for compra in historial %}
                 <tr>
-                    <td>#{{ compra.id }}</td>
-                    <td>{% for item in compra.items.all %}
+                    <td style="background-color: lightblue;"><a href="{% url 'compras:confirmar' compra.id %}">Orden #{{ compra.id }}</a></td>
+                    <td>Productos: <br> <br>
+                        {% for item in compra.items.all %}
                           {{ item.producto.nombre}} &times; {{ item.cantidad }} <br>
                         {% endfor %}
                     </td>
-                    <td>${{ compra.total }}</td>
-                    <td>{{ compra.fecha|date:"d/m/Y" }}</td>
+                    <td>Precio final: ${{ compra.total }}</td>
+                    <td>Fecha de compra: {{ compra.fecha|date:"d/m/Y H:i"}} hs</td>
                 </tr>
                 {% endfor %}
             </tbody>

@@ -36,6 +36,20 @@
     flex: 1;
 }
 
+.form-button {
+   background-color: #fa593c;
+   margin: 0;
+   color:white;
+   border: 2px solid;
+   border-color: black;
+   display: flex;
+   position: inherit;
+   border-radius: 8px;
+   padding: 10px 20px;
+   font-weight: 600;
+   cursor: pointer;
+}
+
 .carrito-item-info h3 {
     font-size: 16px;
     color: #343f44;
@@ -107,15 +121,14 @@
 }
 
 .carrito-resumen {
-    background-color {
-        background-color: white;
-        border-radius: 12px;
-        padding: 20px;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-        height: fit-content;
-        position: sticky;
-        top: 20px;
-    }
+    background-color: white;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    height: fit-content;
+    justify-content:space-evenly;
+    position: sticky;
+    top: 20px;
 }
 
 .carrito-resumen h2 {
@@ -151,23 +164,36 @@
     text-decoration: none;
     margin-top: 16px;
     background-color: #fa593c;
-    width: 100%;
+    padding: 10px 20px;
+    border: 1px solid black;
+    color: whitesmoke;
+    border-radius: 6px;
+    justify-self: center;
+    width: 60%;
     box-sizing: border-box;
+}
+
+.btn-checkout:hover {
+    background-color: lightcoral;
 }
 
 .btn-seguir {
     display: block;
     text-align: center;
     text-decoration: none;
-    color: #888;
+    color: whitesmoke;
     border-radius: 5px;
+    justify-self: center;
+    border: 1px solid black;
+    width: 45%;
+    padding: 5px 10px;
     font-size: 13px;
-    background-color: antiquewhite;
+    background-color: #fa593c;
     margin-top: 10px;
 }
 
 .btn-seguir:hover {
-    color: #fa593c;
+    background-color: lightcoral;
 }
 
 .carrito-vacio {

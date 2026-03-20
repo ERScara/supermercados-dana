@@ -71,7 +71,7 @@
           {% if producto.stock > 0 %}
             <form method="POST" action="{% url 'carrito:agregar' producto.id %}">
               {% csrf_token %}  <!-- Protege de Cross-Site Request Forgery -->
-              <button type="submit" class="btn-agregar">
+              <button type="submit" class="btn-agregar" style="border: 1px solid black">
                 Agregar
               </button>
             </form>

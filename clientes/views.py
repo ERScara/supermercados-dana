@@ -137,7 +137,7 @@ def perfil(request):
             'preferencias': cliente.preferencias.all(),
         })
     
-    historial = cliente.historial_compras.order_by('-fecha')[:5]
+    historial = cliente.historial_compras.order_by('-cliente_id')[:5]
 
     context = {
         'form': form,

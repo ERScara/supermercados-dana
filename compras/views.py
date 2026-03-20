@@ -32,7 +32,8 @@ def checkout(request):
                     compra = compra,
                     producto= item.producto,
                     cantidad=item.cantidad,
-                    precio_unitario=item.precio_unitario
+                    precio_unitario=item.precio_unitario,
+                    precio_original=item.producto.precio
                 )
                 item.producto.stock -= item.cantidad
                 item.producto.save()
@@ -51,6 +52,11 @@ def checkout(request):
 def confirmar(request, compra_id):
     cliente = get_object_or_404(Cliente, usuario=request.user)
     compra = get_object_or_404(Compra, id=compra_id, cliente=cliente)
+
+    items = compra.items.select_related('producto').all()
+    for item in items:
+        _ = item.ahorro
+
     return render(request, 'compras/confirmar.html', {
         'compra': compra,
         'items': compra.items.select_related('producto').all(),

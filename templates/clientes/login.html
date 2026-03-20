@@ -33,8 +33,8 @@
                    class="{% if form.password.errors %}is-invalid{% endif %}">
             <br>
             {% if form.password.errors %}
-                 {% for error in form.password.errors %}
-                  <em><small class="invalid-feedback" >{{ error }}</small></em>
+                  {% for error in form.password.errors %}
+                    <em><small class="invalid-feedback" >{{ error }}</small></em>
                   {% endfor %}
             {% endif %}
         </div>
@@ -45,16 +45,17 @@
            <em><small class="invalid-feedback">{{ error }}</small></em>
            {% endfor %}
         </div>
+        <br>
         {% endif %}
         <p>¿Todavía no tienes una cuenta? Regístrate 
-            <a href="{% url 'clientes:registro' %}">aquí</a>
-        </p>
-        <p>¿Querrías reestablecer tu contraseña? Ingresa 
-           <a href="{% url 'clientes:reset_password' %}">aquí</a>
+            <a href="{% url 'clientes:registro' %}">aquí</a>.
         </p>
         <br>
-        <button type="submit" class="form-button">Ingresar</button>
+        <button type="submit" class="form-button" style="justify-self: center;">Ingresar</button>
         <br>
     </form>
+    <a href="{% url 'productos:inicio' %}" class="form-button" style="color: white; margin-right: auto;">
+        &#8592; Volver al inicio
+    </a>
 </section>
 {% endblock %}

@@ -11,15 +11,10 @@
 <div class="checkout-wrapper">
     <h1>Finalizar compra</h1>
     <hr>
-
     <div class="checkout-body">
-        <h2>Datos de pago</h2>
-        <div class="checkout-aviso">
-            Esta es una simulacion. No ingrese datos bancarios reales.
-        </div>
-
         <form method="POST" action="{% url 'compras:checkout' %}">
             {% csrf_token %}
+            <h2>Datos de pago</h2>
             <div class="form-input">
                 <label>{{ form.nombre_titular.label }}</label>
                 {{ form.nombre_titular }}
@@ -58,9 +53,15 @@
                     {% endif %}
                 </div> 
             </div>
+            <br>
             <button type="submit" class="form-button btn-pagar">
                 Confirmar pago - ${{ carrito.total }}
             </button>
+            <br>
+            <br>
+            <div class="checkout-aviso">
+                Esta es una simulación. No ingrese datos bancarios reales.
+            </div>
         </form>
     </div>
     <div class="checkout-resumen">
@@ -78,6 +79,11 @@
             <strong>${{ carrito.total }}</strong>
         </div>
     </div>
+</div>
+<div>
+    <a class="form-button btn-cancelar" href="{% url 'carrito:ver' %}">
+        Cancelar compra
+    </a>
 </div>
 
 {% block extra_js %}

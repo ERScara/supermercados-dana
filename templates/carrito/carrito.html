@@ -37,22 +37,22 @@
                 <div class="carrito-item-cantidad">
                     <form method="POST" action="{% url 'carrito:actualizar' item.producto.id %}">
                         {% csrf_token %}
-                        <button type="submit" name="action" value="restar" class="cantidad-btn">-</button>
+                        <button type="submit" name="action" value="restar" class="cantidad-btn">&minus;</button>
                         <span class="cantidad-valor">{{ item.cantidad }}</span>
-                        <button type="submit" name="action" value="sumar" class="cantidad-btn">+</button>
+                        <button type="submit" name="action" value="sumar" class="cantidad-btn">&plus;</button>
                     </form>
                 </div>
                 <div class="carrito-item-eliminar">
                     <form method="POST" action="{% url 'carrito:eliminar' item.producto.id %}">
                         {% csrf_token %}
-                        <botton type="submit" class="btn-eliminar">&times;</botton>
+                        <button type="submit" class="btn-eliminar">&times;</button>
                     </form>
                 </div>
             </div>
             {% endfor %}
         </div>
         <div class="carrito-resumen">
-            <h2>Resumen</h2>
+            <h2 style="text-align:center;">Resumen</h2>
             <hr>
             <div class="resumen-linea">
                 <span>Productos ({{ carrito.cantidad_items }})</span>
@@ -69,7 +69,7 @@
             {% endwith %}
             {% endif %}
             <hr>
-            <div class="resumen-total">
+            <div class="resumen-total" style="justify-content: space-evenly;">
                 <span>Total</span>
                 <strong>${{ carrito.total }}</strong>
             </div>
@@ -84,7 +84,7 @@
     {% else %}
     <div class="carrito-vacio">
         <p>Tu carrito está vacío.</p>
-        <a href="{% url 'productos:lista' %}" class="form-button">
+        <a href="{% url 'productos:lista' %}" class="form-button" style="display: table; margin: auto;">
             Ver productos
         </a>
     </div>

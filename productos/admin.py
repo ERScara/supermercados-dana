@@ -10,5 +10,5 @@ class CategoriaAdmin(admin.ModelAdmin):
 class ProductoAdmin(admin.ModelAdmin):
     list_display=('id', 'nombre', 'descripcion', 'precio', 'stock', 'categoria')
     list_filter=('categoria',)
-    search_fields=('nombre', 'descripción')
+    search_fields=('nombre', 'descripcion')
     ordering=('categoria', 'nombre')

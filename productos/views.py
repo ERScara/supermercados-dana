@@ -6,23 +6,26 @@ def inicio(request):
     productos_destacados = Producto.objects.filter(stock__gt=0)[:6]
     context = {
         'categorias': categorias,
-        'prodcutos_destacados': productos_destacados,
+        'productos_destacados': productos_destacados,
     }
     return render(request, 'inicio.html', context)
 
 def lista_productos(request):
     categoria_id = request.GET.get('categoria')
-    productos = Producto.objects.filter(stock__gt=0)
+    productos = Producto.objects.all()
     categorias = Categoria.objects.all()
     categoria_activa = None
     if categoria_id:
         categoria_activa = Categoria.objects.filter(id=categoria_id).first()
-        if categoria_activa:           
-            productos = productos.filter(categoria__id=categoria_id)
+        if categoria_activa:
+            productos = productos.filter(categoria=categoria_activa)
+
+    productos = productos.order_by('-stock', 'nombre')
     cliente = None
     if request.user.is_authenticated:
         from clientes.models import Cliente
         cliente = Cliente.objects.filter(usuario=request.user).first()
+        
     context = {
         'productos': productos,
         'categorias': categorias,
@@ -48,8 +51,7 @@ def buscar(request):
     
     if query:
         resultados = Producto.objects.filter(
-            nombre__icontains=query,
-            stock__gt=0
+            nombre__icontains=query
         ) | Producto.objects.filter(
             descripcion__icontains=query,
             stock__gt=0
@@ -67,4 +69,3 @@ def buscar(request):
         'cliente': cliente,
     }
     return render(request, 'productos/buscar.html', context)
-    
