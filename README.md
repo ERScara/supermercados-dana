@@ -1,6 +1,6 @@
 # 🛒 Supermercados Dana
 
-Aplicación web de supermercado desarrollada con **Django** y templates HTML/CSS artesanal. Permite a los usuarios explorar un catálogo de productos, gestionar un carrito de compras y simular una compra con datos bancarios.
+Aplicación web de supermercado desarrollada con **Django** y templates HTML/CSS. Permite a los usuarios explorar un catálogo de productos, gestionar un carrito de compras y simular una compra con datos bancarios.
 
 ---
 
@@ -16,35 +16,32 @@ Proyecto — Marzo 2026
 - [Características](#características)
 - [Tecnologías](#tecnologías)
 - [Instalación](#instalación)
-- [Estructura del proyecto](#estructura-del-proyecto)
 - [Apps de Django](#apps-de-django)
 - [Modelos](#modelos)
 - [Categorías de productos](#categorías-de-productos)
-- [Capturas de pantalla](#capturas-de-pantalla)
 - [Seguridad](#seguridad)
-- [Autor](#autor)
 
 ---
 
 ## Descripción
 
-Supermercados Dana es un proyecto académico que implementa un supermercado local con las funcionalidades esenciales de una tienda online: catálogo de productos por categoría, buscador global, carrito de compras, sistema de usuarios con perfiles personalizados y un checkout simulado.
+Supermercados Dana es un proyecto que implementa un supermercado local con las funcionalidades esenciales de una tienda online: catálogo de productos por categoría, buscador global, carrito de compras, sistema de usuarios con perfiles personalizados y un checkout simulado.
 
 ---
 
 ## Características
 
-- **Catálogo de productos** con grid responsivo y filtrado por categoría
-- **Buscador global** de productos desde el navbar
-- **Sistema de usuarios** con registro, login y perfil personalizable
-- **Avatar de usuario** con validación de formato y tamaño
-- **Cliente Premium** con descuento del 30% en todos los productos
-- **Carrito de compras** con control de cantidad y eliminación de items
-- **Checkout simulado** con validación de datos bancarios
-- **Historial de compras** visible desde el perfil
-- **Soporte** — formulario para solicitar eliminación de cuenta
-- **Panel de administración** con acciones personalizadas
-- **Logo SVG** generado programáticamente con C++
+- **Catálogo de productos** con grid responsivo y filtrado por categoría.
+- **Buscador global** de productos desde el navbar.
+- **Sistema de usuarios** con registro, login y perfil personalizable.
+- **Avatar de usuario** con validación de formato y tamaño.
+- **Cliente Premium** con descuento del 30% en todos los productos.
+- **Carrito de compras** con control de cantidad y eliminación de items.
+- **Checkout simulado** con validación de datos bancarios.
+- **Historial de compras** visible desde el perfil.
+- **Soporte** — formulario para solicitar eliminación de cuenta.
+- **Panel de administración** con acciones personalizadas.
+- **Logo SVG** generado con Visual C++.
 
 ---
 
@@ -52,8 +49,8 @@ Supermercados Dana es un proyecto académico que implementa un supermercado loca
 
 | Tecnología | Uso |
 |---|---|
-| Python 3.12 | Lenguaje principal |
-| Django 5 | Framework web |
+| Python 3.13.7 | Lenguaje principal |
+| Django 6 | Framework web |
 | SQLite | Base de datos en desarrollo |
 | Pillow | Procesamiento de imágenes |
 | HTML5 / CSS3 | Frontend artesanal sin frameworks |
@@ -88,9 +85,9 @@ source venv/bin/activate
 pip install -r requirements.txt
 
 # 4. Configurar variables de entorno
-# Crear archivo .env en la raíz con:
-# SECRET_KEY=tu-clave-secreta
-# DEBUG=True
+Crear archivo .env en la raíz con:
+- SECRET_KEY=tu-clave-secreta
+- DEBUG=True
 
 # 5. Aplicar migraciones
 python manage.py migrate
@@ -103,48 +100,6 @@ python manage.py runserver
 ```
 
 Accedé a `http://127.0.0.1:8000` en el navegador.
-
----
-
-## Estructura del proyecto
-
-```
-supermercados_dana/
-│
-├── dana/                       ← configuración principal
-│   ├── settings.py
-│   ├── urls.py
-│   └── wsgi.py
-│
-├── productos/                  ← catálogo y categorías
-├── clientes/                   ← usuarios y perfiles
-├── carrito/                    ← carrito de compras
-├── compras/                    ← checkout y historial
-│
-├── templates/                  ← templates HTML
-│   ├── base.html
-│   ├── navbar.html
-│   ├── inicio.html
-│   ├── productos/
-│   ├── clientes/
-│   ├── carrito/
-│   └── compras/
-│
-├── static/                     ← archivos estáticos
-│   ├── img/
-│   │   ├── logo.svg
-│   │   └── avatar_default.svg
-│   ├── css/
-│   └── js/
-│
-├── media/                      ← archivos subidos por usuarios
-│   ├── productos/
-│   └── avatares/
-│
-├── .env                        ← variables sensibles (no en repo)
-├── .gitignore
-└── requirements.txt
-```
 
 ---
 
@@ -168,40 +123,61 @@ Gestiona el proceso de checkout con validación de datos bancarios simulados. Ge
 
 ```
 User (Django)
-└── Cliente
-    ├── edad
-    ├── es_cliente_premium
-    ├── saldo_a_favor
-    ├── avatar
-    └── preferencias (M2M → Categoria)
-
+├── Cliente
+│   ├── usuario (O2O -> User)
+│   ├── edad
+│   ├── es_cliente_premium
+│   ├── saldo_a_favor
+│   ├── preferencias (M2M → Categoria)    
+│   └── avatar
+└── SupportTicket
+    ├── username 
+    ├── email
+    ├── reason
+    ├── created_at
+    └── resolved
+ 
 Categoria
+├── Categoria
+│   ├── nombre
+│   └── descripcion
 └── Producto
     ├── nombre
     ├── descripcion
     ├── precio
     ├── stock
+    ├── coategoria (FK)
     └── imagen
 
 Carrito
+├── Carrito
+│   ├── cliente
+│   ├── creado_en
+│   └── actualizado_en
+│
 └── ItemCarrito
+    ├── carrito (FK)
     ├── producto (FK)
     ├── cantidad
-    └── precio_unitario
+    ├── precio_unitario
+    └── precio_original
+    
 
 Compra
+├── Compra   
+│   ├── cliente (FK)
+│   ├── fecha
+│   ├── estado
+│   └── ultimos_4_digitos
+│
 └── ItemCompra
+    ├── compra (FK)
     ├── producto (FK)
     ├── cantidad
-    └── precio_unitario
+    ├── precio_unitario
+    └── precio_original
 
-SupportTicket
-    ├── username
-    ├── email
-    ├── reason
-    └── resolved
 ```
-
 ---
 
 ## Categorías de productos
@@ -219,14 +195,13 @@ SupportTicket
 
 ## Seguridad
 
-- `SECRET_KEY` almacenada en `.env` — nunca en el código fuente
-- Protección **CSRF** en todos los formularios POST
-- Validación de archivos subidos (formato y tamaño) en el servidor
-- Contraseñas hasheadas por Django
-- `@login_required` en todas las vistas protegidas
-- Datos bancarios **nunca almacenados** — solo los últimos 4 dígitos
-- Defensa en profundidad en la lógica de descuentos Premium
-- Mismo mensaje de respuesta en reset de contraseña para evitar **user enumeration**
+- `SECRET_KEY` almacenada en `.env` — nunca en el código fuente.
+- Protección **CSRF** en todos los formularios POST.
+- Validación de archivos subidos (formato y tamaño) en el servidor.
+- `@login_required` en todas las vistas protegidas.
+- Datos bancarios **nunca almacenados** — solo los últimos 4 dígitos.
+- Defensa en profundidad en la lógica de descuentos Premium.
+- Mismo mensaje de respuesta en reset de contraseña para evitar **user enumeration**.
 
 ---
 
