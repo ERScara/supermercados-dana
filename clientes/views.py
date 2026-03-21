@@ -60,7 +60,7 @@ def reset_password(request):
     
     return render(request, 'clientes/reset_password.html', {'message': message})
 
-@login_required(login_url='clientes:login')
+@login_required
 def soporte(request):
     mensaje_enviado = False
     error_message = None
@@ -97,7 +97,7 @@ def soporte(request):
       'reason': reason,
     })
 
-@login_required(login_url="clientes:login")
+@login_required
 def hacerse_premium(request):
     if request.method == 'POST':
         cliente = Cliente.objects.get(usuario=request.user)
@@ -106,7 +106,7 @@ def hacerse_premium(request):
 
     return redirect('clientes:perfil')
 
-@login_required(login_url='clientes:login')
+@login_required
 def perfil(request):
     cliente, _= Cliente.objects.get_or_create(usuario=request.user)
     cliente.refresh_from_db()

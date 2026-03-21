@@ -4,7 +4,7 @@ from .models import Carrito, ItemCarrito
 from productos.models import Producto
 from clientes.models import Cliente 
 
-@login_required(login_url='clientes:login')
+@login_required
 def ver_carrito(request):
     cliente = get_object_or_404(Cliente, usuario=request.user)
     carrito, _= Carrito.objects.get_or_create(cliente=cliente)
@@ -14,7 +14,7 @@ def ver_carrito(request):
         'items': carrito.items.select_related('producto').all()
     })
 
-@login_required(login_url='clientes:login')
+@login_required
 def agregar(request, producto_id):
     if request.method == 'POST':
         producto = get_object_or_404(Producto, pk=producto_id)
@@ -46,7 +46,7 @@ def agregar(request, producto_id):
 
     return redirect('carrito:ver')
 
-@login_required(login_url='clientes:login')
+@login_required
 def eliminar(request, producto_id):
     if request.method == 'POST':
         cliente = get_object_or_404(Cliente, usuario=request.user)
@@ -60,7 +60,7 @@ def eliminar(request, producto_id):
 
     return redirect('carrito:ver')
 
-@login_required(login_url='clientes:login')
+@login_required
 def actualizar_cantidad(request, producto_id):
     """ Aumenta o disminuye la cantidad de un item. """
     if request.method == 'POST':

@@ -34,7 +34,7 @@ class Cliente(models.Model):
         self.refresh_from_db()
         if not self.es_cliente_premium:
             self.es_cliente_premium = True
-            self.saldo_a_favor += Decimal('50.00')
+            self.saldo_a_favor += Decimal('1000.00')
             self.save()
             return f"¡Felicidades, {self.usuario.first_name}! Ya eres cliente Premium."
         return f"{self.usuario.first_name}, ya eres cliente Premium"

@@ -5,7 +5,7 @@ from .forms import CheckoutForm
 from carrito.models import Carrito
 from clientes.models import Cliente
 
-@login_required(login_url='clientes:login')
+@login_required
 def checkout(request):
     cliente = get_object_or_404(Cliente, usuario=request.user)
     carrito = get_object_or_404(Carrito, cliente=cliente)
@@ -48,7 +48,7 @@ def checkout(request):
         'items': carrito.items.select_related('producto').all()
     })
 
-@login_required(login_url='clientes:login')
+@login_required
 def confirmar(request, compra_id):
     cliente = get_object_or_404(Cliente, usuario=request.user)
     compra = get_object_or_404(Compra, id=compra_id, cliente=cliente)
