@@ -1,0 +1,14 @@
+db.sqlite3
+venv/
+.env
+media/*
+!media/.gitkeep
+__pychache__/
+*.pyc
+*.pyo
+
+.vscode/
+
+Thumbs.db
+desktop.ini
+
