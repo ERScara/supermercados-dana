@@ -117,6 +117,12 @@ Maneja el carrito de compras por usuario. Permite agregar productos, modificar c
 ### `compras`
 Gestiona el proceso de checkout con validación de datos bancarios simulados. Genera un historial de compras por cliente y actualiza el stock de productos.
 
+### `atencion_cliente`
+Ofrece un espacio para que los clientes puedan expresar sus inquietudes, tiene un sitio de preguntas frecuentes y una sección de comentarios.
+
+### `acerca_de`
+Sección especial acerca del creador del sitio. Aquí se encuentra una imagen del autor, una breve biografía del mismo y una descripción del proyecto.
+
 ---
 
 ## Modelos
@@ -146,8 +152,27 @@ Categoria
     ├── descripcion
     ├── precio
     ├── stock
-    ├── coategoria (FK)
+    ├── categoria (FK)
     └── imagen
+
+Atencion_cliente
+├── PreguntasFrecuentes
+│   ├── titulo
+│   ├── respuesta
+│   └── orden
+├── Comentario
+│   ├── user (FK)
+│   ├── parent (FK)
+│   ├── puntuacion
+│   ├── titulo
+│   ├── mensaje
+│   ├── fecha
+│   ├── is_deleted
+│   └── reportes (M2M -> User)
+└── VotoComentario
+    ├── comentario (FK)
+    ├── cliente (FK)
+    └── voto
 
 Carrito
 ├── Carrito
