@@ -10,5 +10,6 @@ urlpatterns = [
     path('perfil/', views.perfil, name='perfil'),
     path('reset-password/', views.reset_password, name='reset_password'),
     path('soporte/', views.soporte, name='soporte'),
+    path('eliminar-avatar/', views.eliminar_avatar, name='eliminar_avatar'),
     path('hacerse-premium/', views.hacerse_premium, name='hacerse_premium'),
 ]

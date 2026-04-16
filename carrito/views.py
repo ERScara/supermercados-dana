@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required
 from .models import Carrito, ItemCarrito
 from productos.models import Producto
 from clientes.models import Cliente 
+from decimal import Decimal
 
 @login_required
 def ver_carrito(request):
@@ -21,9 +22,19 @@ def agregar(request, producto_id):
         cliente = get_object_or_404(Cliente, usuario=request.user)
         carrito, _ = Carrito.objects.get_or_create(cliente=cliente)
 
+        cantidad_input = request.POST.get('cantidad', '1')
+
         try: 
-            cantidad = int(request.POST.get('cantidad', 1))
+            cantidad_input = Decimal(cantidad_input)
         except ValueError:
+            cantidad_input = Decimal('1')
+
+        if producto.es_pesable:
+            cantidad = float(request.POST['cantidad'])*1000
+        else:
+            cantidad = int(cantidad_input)
+
+        if cantidad <= 0:
             cantidad = 1
 
         cantidad = max(1, min(cantidad, producto.stock))
@@ -32,7 +43,7 @@ def agregar(request, producto_id):
             precio = producto.precio_con_descuento
         else:
             precio = producto.precio
-        
+         
         item, creado = ItemCarrito.objects.get_or_create(
             carrito=carrito,
             producto=producto,
@@ -41,7 +52,9 @@ def agregar(request, producto_id):
 
         if not creado:
             nueva_cantidad = item.cantidad + cantidad
-            item.cantidad = min(nueva_cantidad, producto.stock)
+            if nueva_cantidad > producto.stock:
+                nueva_cantidad = producto.stock
+            item.cantidad = nueva_cantidad
             item.save()
 
     return redirect('carrito:ver')

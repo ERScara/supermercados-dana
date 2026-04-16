@@ -1,0 +1,38 @@
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/navbar.css' %}">
+<link rel="stylesheet" href="{% static 'css/acerca-de.css' %}">
+{% endblock %}
+
+{% include 'navbar.html' %}
+{% block content %}
+<hr>
+
+<img src="{% static 'img/Esteban.jpg' %}" alt="Esteban Scaramuzza" width="auto" height="auto" title="Esteban" size="" loading="eager" class="flex-container">
+
+<h2>Acerca de mí</h2>
+<br />
+<div>
+    <p>Mi nombre  es <i>Esteban Scaramuzza</i>, estudio para ser Licenciado en Biotecnología en la Universidad Nacional de Córdoba. Actualmente me encuentro en cuarto año de la carrera.<br />
+       Desde hace varios años, me he estado formando en programación de manera independiente y autodidacta, he tomado cursos de programación para aprender nuevos lenguajes y crear programas en base a ellos. <br />
+       No he estudiado programación formalmente en la universidad, todo mi conocimiento lo he ido adquiriendo de libros y manuales a través de los años y los he estado usado en algunos proyectos de la universidad, aunque nunca los haya presentado formalmente en un trabajo final. Lo que sí he adquirido de la universidad es una introducción a la Lógica Simbólica (lo cual fue una buena introducción a Prolog) y a Haskell (programación funcional) que, a mi parecer, me fueron útiles para iniciar mi trayecto en programación.<br />
+       Tengo conocimiento de distintos lenguajes: Prolog, Haskell, C/C++ y JavaScript. He desarrollado muchos proyectos en Visual C++/CLI, uno de ellos es acerca de una interfaz gráfica hecha en WinForms del clásico comando Robocopy de Windows. Además, he probado Win32/GDI para hacer un juego de naves, bastante funcional, que posee todo lo que se espera de un juego: una pausa, niveles, lista tipo HI-Score para ver el puntaje de los jugadores, entre otras cosas.<br />
+       Hace un par de años, empecé a formarme en Python, debido a su popularidad, tanto en el ámbito científico como en el ámbito de la inteligencia artificial. <br />
+       Actualmente, me estoy formando en uso de IA para automatización de tareas, para elaborar instrucciones (prompts) y para emplear herramientas 
+    </p>
+    <h2>Sobre el proyecto </h2>
+    <p>
+       He diseñado esta aplicación web de práctica en Django REST Framework y templates. La misma consiste en un supermercado, llamado "Dana", que presenta ciertas funcionalidades prácticas que pueden hacerse en sitos web de supermercados reales. Es una buena imitación de un supermercado que permite hacer un flujo completo: desde buscar productos y añadirlos al carrito, hasta confirmar la compra (que puede efectuarse añadiendo los datos de la tarjeta) y ver comprobantes de pago de compras anteriores. <br />
+       En este supermercado ficticio, pueden seleccionarse productos por categoría e indica el precio a pagar, con y sin descuento. Además, existe un detalle del producto, en el que podemos seleccionar la cantidad del mismo sujeta al stock del producto. Esta cantidad puede modificarse en el carrito, también puede retirarse un producto del carrito.
+       Para hacer las compras, debe crearse una cuenta, la que permite a la vez tiener registro de las compras y con la que los usuarios podrán comunicarse a atención al cliente o hacer cometarios. <br />
+    </p>
+</div>
+
+<hr>
+
+<a href="{% url 'productos:inicio' %}" class="btn-volver">
+        &#8592; Volver al inicio
+</a>
+
+{% endblock %}

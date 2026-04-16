@@ -1,0 +1,210 @@
+{% extends 'base.html' %}
+
+{% block title %}Atención al Cliente - Dana{% endblock %}
+
+{% block content %}
+<h2>¡Bienvenido al centro de consultas de Dana!</h2>
+
+<p>Esta seccion le permite ver una serie de preguntas frecuentes que los usuarios nos hacen acerca de las compras. <br />
+   Estamos siempre a su disposición por cualquier consulta. Para hacer una pregurta, diríjase a la sección de comentarios.
+</p>
+
+<div class="preguntas-frecuentes">
+    <h2>¿Como hago una compra en Dana?</h2>
+    <span>Muy simple: dirígete a la sección de productos y selecciona el que desees agregar al carrito. <br />
+          Puedes ver una vista detallada del producto, elegir la cantidad que deseas y luego porceder al carrito para finalizar la compra.
+          Recuerda que el único medio de pago, por ahora, es ingresando los datos de la tarjeta. 
+    </span>
+</div>
+
+<div class="preguntas-frecuentes">
+    <h2>¿Qué hacer si un producto llega dañado?</h2>
+    <span>La política de productos dañados es responsabilidad del servicio de cadetería, en cuyo caso el solo reclamo habilita a un cambio o reposición del producto en el menor tiempo posible. <br />
+        El producto dañado debe ser devuelto a nuestra sucursal en los proximos 5 días o, de lo contrario, nos reservamos el derecho a la no reposición del producto. 
+          Si el mismo se encuentra agotado, no puede pedir el reembolso del dinero y deberá cambiarlo por otro producto, que puede tener el mismo precio o menor pero no podrá exceder el monto del producto a cambiar.
+    </span>
+</div>
+
+<div class="preguntas-frecuentes">
+    <h2>¿Como acceder a los descuentos?</h2>
+    <span>Los descuentos son accesibles si accede a nuestro sistema de lealtad Premium, por un minimo coste recibe un monto en su cartera personal que puede transferirse para acceder a premios especiales. <br>
+         El dinero queda en su cuenta y es acumulable con otros sistemas de descuentos del propio supermercado. Los productos adquiridos con este dinero no tienen devolución, sin importar el estado en el que se encuentren, pero pueden reclamarse si son recibidos incompletos. <br>
+         Es importante que conozca que tiene el 30% en todos los productos que se venden el supermercado, pero el costo de acceder a la membresía es de $40.000,00 mensuales y para acceder a estos descuentos no debe adeudar ninguna cuota.
+    </span>
+</div>
+
+<h1><b>Comentarios</b></h1>
+
+{% for comment in comentarios %}
+<div class="main-comments">
+    <div style="border: 2px solid #ccc;"> 
+    {% if comment.user and comment.user.usuario %}
+      Comentario de <small ><strong>{{ comment.user.usuario.username }}</strong></small>
+    {% else %}
+      [Usuario Eliminado]
+    {% endif %}
+    | publicado el <small>{{ comment.fecha|date:"d/m/Y H:i" }}</small>
+    </div>
+    <br />
+    <div style="border: 2px solid #ccc;"> 
+    <p>{{ comment.mensaje }}</p>
+    </div>
+
+    {% if comment.puntuacion %}
+      <div class="stars">Ha votado con {{ comment.estrellas }} estrellas.</div>
+    {% endif %}
+
+    {% if user.is_authenticated %}
+        {% if user.is_superuser %}
+           <span style="color:grey; cursor:default;" title="Revise el panel de administración para ver los reportes.">[Modo Administrador]</span>
+        {% elif user == comment.user.usuario %}
+            {% if comment.is_reported_by_anyone %}
+               <em><span id="cspan">Tu comentario ha sido reportado.</span></em>
+            {% endif %}
+        {% else %}
+            {% if comment.has_reported %}
+               <span>&#9989; Reportado</span>
+            {% elif not comment.is_deleted and comment.user %}
+              <form method="post" action="{% url 'atencion_cliente:reportar' comment.id %}" style="display:inline;">
+                {% csrf_token %}
+                <button type="submit" class="red-flag-btn">Reportar</button>
+              </form>
+            {% endif %}
+        {% endif %}
+    {% else %}
+       <p id="end-line">Debes <a href="{% url 'clientes:login' %}" style="color:red;">iniciar sesión</a> para reportar</p>
+    {% endif %}
+
+    {% if user.is_authenticated %}
+    <div class="comment-actions">
+        <button type="button" class="form-button reply-btn" data-id="{{ comment.id }}" data-username="{% if comment.user and comment.user.usuario %}{{comment.user.usuario.username}}{% endif %}">Responder</button>
+    <br>
+    {% if user == comment.user.usuario or user.is_superuser %}
+    <form method="post" action="{% url 'atencion_cliente:eliminar' comment.id %}" style="display:inline">
+        {% csrf_token %}
+        <button type="submit" class="form-button danger">Eliminar</button>
+        <br>
+    </form>
+    {% endif %}
+    </div>
+    {% endif %}
+    {% for reply in comment.respuestas.all %}
+    <div class="reply" style="margin-left:20px; border: 2px solid #ccc; padding-left: 10px; margin-top: 10px;">
+        <div style="border: 2px solid #ccc;">
+        {% if reply.user and reply.user.usuario %}
+        <small><strong>{{ reply.user.usuario.username }}</strong></small>
+        {% else %}
+        [Usuario Eliminado]
+        {% endif %}
+        | publicado el <small>{{ reply.fecha|date:"d/m/Y H:i" }}</small>
+        </div>
+        {% if reply.parent and reply.parent.user and reply.parent.user.usuario %}
+          <span>Respondiendo a @{{ reply.parent.user.usuario.username }}</span>
+        {% endif %}
+        <div style="border: 2px solid #ccc;">
+        <small>{{ reply.mensaje }}</small>
+        </div>
+        {% if reply.puntuacion %}
+        <div class="stars">Ha votado con {{ reply.estrellas }} estrellas.</div>
+        {% endif %}
+          {% if user.is_authenticated %}
+        {% if user.is_superuser %}
+           <span style="color:grey; cursor:default;" title="Revise el panel de administración para ver los reportes.">[Modo Administrador]</span>
+        {% elif user == reply.user.usuario %}
+            {% if reply.is_reported_by_anyone %}
+               <em><span id="cspan">Tu comentario ha sido reportado.</span></em>
+            {% endif %}
+        {% else %}
+            {% if reply.has_reported %}
+               <span>&#9989; Reportado</span>
+            {% elif not reply.is_deleted and comment.user %}
+              <form method="post" action="{% url 'atencion_cliente:reportar' reply.id %}" style="display:inline;">
+                {% csrf_token %}
+                <button type="submit" class="red-flag-btn">Reportar</button>
+              </form>
+            {% endif %}
+        {% endif %}
+    {% else %}
+       <p id="end-line">Debes <a href="{% url 'clientes:login' %}" style="color:red;">iniciar sesión</a> para reportar</p>
+    {% endif %}
+    {% if user.is_authenticated %}
+    <div class="comment-actions">
+        <button type="button" class="form-button reply-btn" data-id="{{ reply.id }}" data-username="{% if reply.user and reply.user.usuario %}{{reply.user.usuario.username}}{% endif %}">Responder</button>
+    <br>
+    {% if user == reply.user.usuario or user.is_superuser %}
+    <form method="post" action="{% url 'atencion_cliente:eliminar' reply.id %}" style="display:inline">
+        {% csrf_token %}
+        <button type="submit" class="form-button danger">Eliminar</button>
+        <br>
+    </form>
+    {% endif %}
+    </div>
+    {% endif %}
+    </div>
+    <br>
+    {% endfor %}
+</div>
+{% empty %}
+    <p style="text-align:center; margin-bottom:20px;">No hay comentarios aún. ¡Sé el primero en comentar!</p>
+{% endfor %}
+<div class="selection-box">
+    <form method="get">
+        <select class="select-combo" name="orden" onchange="this.form.submit()">
+            <option value="best" {% if orden == 'best' %}selected{% endif %}>Mejor calificados</option>
+            <option value="worst" {% if orden == 'worst' %}selected{% endif %}>Peor calificados</option>
+            <option value="newest" {% if orden == 'newest' %}selected{% endif %}>Más recientes</option>
+            <option value="oldest" {% if orden == 'oldest' %}selected{% endif %}>Más antiguos</option>
+        </select>
+    </form>
+</div>
+<br>
+{% if user.is_authenticated %}
+<div class="form-centered">
+    <form  method="post" action="{% url 'atencion_cliente:crear_comentario' %}">
+        {% csrf_token %}
+        <input type="hidden" name="parent_id" id="parent_id" value="">
+        <div id="replying-box" style="display:none; margin-bottom:10px;">
+            Respondiendo a <strong id="replying-name"></strong>
+            <button type="button" onclick="clearParent()" style="cursor:pointer; border-radius: 20px;">&times;</button>
+        </div>
+        {{form.titulo}}
+        {{form.mensaje}}
+        {{form.puntuacion}}
+        <button type="submit" class="form-button">Enviar</button>
+        <button type="button" class="form-button" onclick="clearParent()">Cancelar respuesta</button>
+    </form>
+</div>
+{% else %}
+<p style="text-align: center; margin-top:20px;">Debes <a href="{% url 'clientes:login' %}" style="font-style:italic; color: red;">iniciar sesión</a> para comentar.</p>
+{% endif %}
+
+{% endblock %}
+
+{% block extra_js %}
+<script type="text/javascript">
+function setParent(id, username) {
+    const parentInput = document.getElementById('parent_id');
+    if (parentInput) {
+        parentInput.value = id;
+        parentInput.scrollIntoView({behavior: 'smooth', block:'center'});
+    }
+    document.getElementById('replying-name').textContent = username;
+    document.getElementById('replying-box').style.display = 'block';
+}
+
+document.querySelectorAll('.reply-btn').forEach(btn => {
+    btn.addEventListener('click', function () {
+        setParent(this.dataset.id, this.dataset.username);
+    });
+});
+
+function clearParent() {
+    const parentInput = document.getElementById('parent_id');
+    if (parentInput) {
+        parentInput.value = '';
+    }
+    document.getElementById('replying-name').textContent = '';
+    document.getElementById('replying-box').style.display = 'none';
+}
+</script>
+{% endblock %}

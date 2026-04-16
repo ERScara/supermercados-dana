@@ -139,6 +139,30 @@ h3 {
     resize: vertical;
 }
 
+.avatar-delete-btn {
+    background-color: transparent;
+    border: 1px solid transparent;
+    color: transparent;
+    position: relative;
+    margin-left: 330px;
+    justify-self: center;
+    cursor: pointer;
+    padding: 6px 14px;
+    border-radius: 8px;
+    font-size: 13px;
+    cursor: pointer;
+    margin-top: 6px;
+    transition: all 0.2s ease;
+}
+
+.avatar-delete-btn:hover {
+    border: 1px solid black;
+    background-color: lightgray;
+    color: black;
+    opacity: rgba(0, 0, 0 ,0.4)
+}
+
+
 .form-button {
    background-color: #fa593c;
    margin: 0;

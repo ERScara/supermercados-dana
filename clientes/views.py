@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
@@ -146,3 +146,17 @@ def perfil(request):
     }
 
     return render(request, 'clientes/perfil.html', context)
+
+@login_required
+def eliminar_avatar(request):
+    if request.method == 'POST':
+        cliente = get_object_or_404(Cliente, usuario=request.user)
+
+        if cliente.avatar:
+            import os
+            if os.path.isfile(cliente.avatar.path):
+                os.remove(cliente.avatar.path)
+            cliente.avatar = None
+            cliente.save()
+    
+    return redirect('clientes:perfil')

@@ -1,0 +1,61 @@
+img {
+    display: block;
+    margin: auto;
+    padding: 5px;
+    border-radius: 8px;
+}
+
+hr {
+    margin-block:70px;
+    border: none; 
+    height: 3px; 
+    background-color: #333; 
+    width: 70%;
+}
+
+.flex-container {
+    display: flex;
+    width: 250px;
+    border: 3px solid lightsteelblue;
+    border-radius: 20px;
+    justify-content: center;
+    align-items:center;
+}
+
+.btn-volver {
+    text-align: center;
+    padding: 10px;
+    border: 2px solid #343f44;
+    border-radius: 8px;
+    margin-left: 600px;
+    border-radius: 35px;
+    color: #343f44;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.2s ease;
+}
+
+.btn-volver:hover {
+    background-color: #fa322c;
+    color: white;
+}
+h2 {
+    text-align: center;
+}
+
+em {
+    color: #fa322c;
+}
+
+p {
+    text-align: justify;
+    text-justify:newspaper;
+    margin: auto;
+    margin-top: 5px;
+    width: 60%;
+    max-width: 1000px;
+}
+
+div {
+    text-align: center;
+}

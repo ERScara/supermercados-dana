@@ -24,9 +24,10 @@ span {
    text-decoration: none;
 }
 
+
 .logo-intro {
-    background-color: lightsalmon;
-    border-radius: 5px;
+    background-color: burlywood;
+    border-radius: 20px;
     margin-top:50px;
     max-width: fit-content;
     justify-self:center;
@@ -284,7 +285,8 @@ body {
 .user {
     margin-left: auto;
     position: absolute;
-    background-color: antiquewhite;
+    width: fit-content;
+    background-color: white;
     border-radius: 5px;
     padding: 5px 10px;
     gap: 8px;

@@ -1,0 +1,156 @@
+h2 {
+    position:relative;
+    text-align: center;
+}
+
+h1 {
+    margin-top: 22px;
+}
+
+.form-centered {
+    max-width:700px;
+    margin: 0 auto;
+    padding: 7px;
+    background-color: aliceblue;
+    border-top: 4px solid navy;
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.form-centered form {
+    width:100%;
+    max-width: 500px;
+}
+
+.form-centered button {
+    justify-self: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.main-comments {
+   margin-left: 30px;
+   border-left: 2px solid #ccc;
+   padding-top: 8px;
+   padding-left: 10px;
+   padding-right: 12px;
+   width: fit-content;
+   height:50%;
+   margin: 0 auto;
+   max-width: 600px;
+   border-radius: 6px;
+   align-items:left;    
+   hyphens:auto;
+   background-color: antiquewhite;
+}
+
+.form-centered p {
+    text-align: left;
+    margin-bottom: 12px;
+}
+
+.form-centered input,
+.form-centered textarea,
+.form-centered select {
+    width: 100%;
+    border-radius: 12px;
+    resize:vertical;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    box-sizing: border-box;
+}
+
+p {
+    text-align: justify;
+    text-justify:newspaper;
+    hyphens: auto;
+    width: 100%;
+}
+
+.preguntas-frecuentes {
+    text-decoration: solid;
+    text-align: justify;
+    text-justify: newspaper;
+    max-width: 50%;
+    margin-top: 20px;
+    justify-self: center;
+    width: fit-content;
+    padding: 10px 20px;
+    background-color: honeydew;
+    border-radius: 6px 7px 7px 6px;
+    border-top: 4px solid navy;
+}
+
+.preguntas-frecuentes span {
+    text-align: justify;
+    text-justify:newspaper;
+    hyphens: auto;
+    width: 100%;
+}
+
+.comment-card, .reply {
+   margin-left: 30px;
+   border-left: 2px solid #ccc;
+   padding-top: 8px;
+   padding-left: 10px;
+   padding-right: 10px;
+   border-radius: 6px;
+   background-color: #f9f9f9;
+}
+
+.comment-actions {
+    margin-left: 250px;
+    margin-bottom: 15px ;
+}
+
+.red-flag-btn {
+   width: 70px;
+   clip-path: polygon(0% 0%, 75% 0%, 100% 50%, 75% 100%, 0% 100%);
+   transition: transform 0.2s, background-color 0.2s box-shadow 0.3s ease;
+   border: none;
+   box-shadow: 0 4px 6px rgba(0,0,0, 0.7);
+   height: 30px;
+   background-color: #ff4d4d;
+   display: flex;
+   align-items: center;
+   color:white;
+   font-size: 12px;
+   font-style: italic;
+   cursor: pointer;
+}
+
+.red-flag-btn:hover {
+   box-shadow: 0 8px 16px rgba(0,0,0, 0.5);
+   background-color: coral;
+   transform: scale(1, 1);
+}
+
+.red-flag-btn:active {
+    transform: scale(0.9);
+}
+
+.select-combo {
+    border-radius: 6px;
+    border: 2px solid black;
+    color:white;
+    background-color: #fa593c;
+    cursor: pointer;
+}
+
+.select-combo:hover {
+    background-color: lightcoral;
+}
+
+.selection-box {
+    margin-top: 8px;
+    justify-self: center
+}
+
+.stars {
+    padding: 20px;
+    text-align: left;
+    justify-self:left;
+    display: block;
+    border-radius: 6px;
+}

@@ -1,0 +1,126 @@
+from django.shortcuts import render, redirect, get_object_or_404
+from django.views.generic import ListView, DetailView, TemplateView
+from django.contrib.auth.decorators import login_required
+from django.contrib.contenttypes.models import ContentType
+from django.http import JsonResponse
+from .models import Comentario, VotoComentario, PreguntasFrecuentes
+from .forms import ComentarioForm
+from clientes.models import Cliente
+
+class PortalView(TemplateView):
+    template_name= 'atencion_cliente/portal.html'
+
+class FAQListView(ListView):
+    model = PreguntasFrecuentes
+    template_name = 'atencion_cliente/faq_list.html'
+    context_object_name = 'preguntas'
+
+class FAQDetailView(DetailView):
+    model = PreguntasFrecuentes
+    template_name = 'atencion_cliente/faq_detail.html'
+    context_object_name = 'pregunta'
+
+def inicio(request):
+    comentarios = Comentario.objects.filter(
+        is_deleted=False,
+        parent__isnull=True
+    ).select_related('user', 'parent').order_by('fecha')
+    total = comentarios.count()
+    promedio = round(sum(c.puntuacion for c in comentarios) / total, 1) if total > 0 else 0
+    
+    form = ComentarioForm() if request.user.is_authenticated else None
+
+    return render(request, 'atencion_cliente/portal.html', {
+        'comentarios': comentarios,
+        'total': total,
+        'promedio': promedio,
+        'form': form,
+        'orden': 'newest',
+    })
+
+def crear_comentario(request):
+    """ Comentario que los qulientes hacen en el área de atención al cliente. """
+
+    if request.method != 'POST':
+        return redirect('atencion_cliente:inicio')
+    
+    form = ComentarioForm(request.POST)
+    if not form.is_valid():
+        return redirect('atencion_cliente:inicio')  
+
+    parent_id = request.POST.get('parent_id')
+    cliente = get_object_or_404(Cliente, usuario=request.user)
+
+    comentario = form.save(commit=False)
+    comentario.user = cliente
+    
+    if parent_id:
+        comentario.parent_id = parent_id
+    
+    comentario.save()
+
+    return redirect('atencion_cliente:inicio')
+    
+@login_required
+def votar(request, comentario_id):
+    """ Me gusta / No me gusta en un comentario. Vía AJAX. """
+
+    if request.method != 'POST':
+        return JsonResponse({'error': 'Método no permitido.'}, status=405)
+    comentario = get_object_or_404(Comentario, pk=comentario_id)
+    cliente = get_object_or_404(Cliente, usuario=request.user)
+    voto= request.POST.get('voto')
+
+    if voto not in ['like', 'dislike']:
+        return JsonResponse({'error': 'Voto inválido'}, status=400)
+    
+    voto_obj, creado = VotoComentario.objects.get_or_create(
+        comentario=comentario,
+        cliente=cliente,
+        defaults={'voto':voto}
+    )
+
+    if not creado:
+        if voto_obj.voto == voto:
+            voto_obj.delete()
+        else:
+            voto_obj.voto = voto
+            voto_obj.save()
+
+    return JsonResponse({
+        'likes': comentario.votos.filter(voto='like').count(),
+        'dislikes': comentario.votos.filter(voto='dislike').count(),
+    })
+
+@login_required
+def reportar(request, comentario_id):
+    """ Reportar un comentario. """
+    if request.method != 'POST':
+        return redirect('atencion_cliente:inicio')
+
+    comentario = get_object_or_404(Comentario, pk=comentario_id)
+    cliente = get_object_or_404(Cliente, usuario=request.user)
+    
+    if comentario.user != cliente:
+        comentario.reportes.add(cliente)
+
+    return redirect('atencion_cliente:inicio')
+
+
+@login_required
+def eliminar(request, comentario_id):
+    """ Eliminar un comentario - solo el autor o el admin. """
+    if request.method != 'POST':
+        return redirect('atencion_cliente:inicio')
+
+    comentario = get_object_or_404(Comentario, pk=comentario_id)
+    cliente = get_object_or_404(Cliente, usuario=request.user)
+
+    es_autor = comentario.user == cliente
+    es_admin = request.user.is_superuser
+
+    if es_autor or es_admin:
+        comentario.is_deleted = True
+        comentario.save()
+
+    return redirect('atencion_cliente:inicio')

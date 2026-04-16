@@ -10,13 +10,19 @@
 {% block content %}
 <div class="perfil-wrapper">
     <div>
-        <img src="{{ cliente.get_avatar_url }}" alt="Avatar de {{ request.user.username }}" class="perfil-avatar"> 
+        <img src="{{ cliente.get_avatar_url }}" alt="Avatar de {{ request.user.username }}" title="Avatar de {{ request.user.username }}" class="perfil-avatar">
+        {% if cliente.avatar %}
+        <form method="POST" action="{% url 'clientes:eliminar_avatar' %}">
+          {% csrf_token %}
+          <button type="submit" class="avatar-delete-btn" title="Eliminar avatar"> X </button>
+        </form>
+        {% endif %}
     </div>
     <div>
         <h2 class="centered">
             {{ request.user.get_full_name|default:request.user.username }}
             {% if cliente.es_cliente_premium %}
-            <span>&#127775; Premium</span>
+            (<span>&#127775; Premium</span>)
             {% else %}
             <span class="badge-regular">Regular</span>
             {% endif %}
