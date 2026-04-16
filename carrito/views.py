@@ -2,8 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from .models import Carrito, ItemCarrito
 from productos.models import Producto
-from clientes.models import Cliente 
-from decimal import Decimal
+from clientes.models import Cliente
 
 @login_required
 def ver_carrito(request):
@@ -25,19 +24,14 @@ def agregar(request, producto_id):
         cantidad_input = request.POST.get('cantidad', '1')
 
         try: 
-            cantidad_input = Decimal(cantidad_input)
-        except ValueError:
-            cantidad_input = Decimal('1')
-
-        if producto.es_pesable:
-            cantidad = float(request.POST['cantidad'])*1000
-        else:
             cantidad = int(cantidad_input)
-
-        if cantidad <= 0:
+        except (TypeError, ValueError):
             cantidad = 1
 
-        cantidad = max(1, min(cantidad, producto.stock))
+        if cantidad < 1:
+            cantidad = 1
+
+        cantidad = min(cantidad, producto.stock)
         
         if cliente.es_cliente_premium:
             precio = producto.precio_con_descuento

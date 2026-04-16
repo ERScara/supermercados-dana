@@ -47,7 +47,7 @@
     </div>
     <br />
     <div style="border: 2px solid #ccc;"> 
-    <p>{{ comment.mensaje }}</p>
+    <span style="text-align:justify; text-justify:newspaper;">{{ comment.mensaje }}</span>
     </div>
 
     {% if comment.puntuacion %}
@@ -102,7 +102,7 @@
           <span>Respondiendo a @{{ reply.parent.user.usuario.username }}</span>
         {% endif %}
         <div style="border: 2px solid #ccc;">
-        <small>{{ reply.mensaje }}</small>
+        <span style="text-align:justify; text-justify:newspaper;">{{ reply.mensaje }}</span>
         </div>
         {% if reply.puntuacion %}
         <div class="stars">Ha votado con {{ reply.estrellas }} estrellas.</div>
@@ -147,7 +147,9 @@
 {% empty %}
     <p style="text-align:center; margin-bottom:20px;">No hay comentarios aún. ¡Sé el primero en comentar!</p>
 {% endfor %}
+
 <div class="selection-box">
+    <span>Ordenar por: </span>
     <form method="get">
         <select class="select-combo" name="orden" onchange="this.form.submit()">
             <option value="best" {% if orden == 'best' %}selected{% endif %}>Mejor calificados</option>
