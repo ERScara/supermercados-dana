@@ -16,11 +16,11 @@ class ComentarioAdmin(admin.ModelAdmin):
     
     def likes_count(self, obj):
         return obj.votos.filter(voto='like').count()
-    likes_count.short_description = 'Likes'
+    likes_count.short_description = 'Me gusta'
 
     def dislikes_count(self, obj):
         return obj.votos.filter(voto='dislike').count()
-    likes_count.short_description = 'Disikes'
+    likes_count.short_description = 'No me gusta'
 
     def autor(self, obj):
         if obj.user and obj.user.usuario:

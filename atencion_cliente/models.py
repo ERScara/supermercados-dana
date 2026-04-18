@@ -10,6 +10,7 @@ class PreguntasFrecuentes(models.Model):
 
     class Meta:
         ordering = ['orden', 'titulo']
+        verbose_name_plural = 'Preguntas frecuentes'
     
     def __str__(self):
         return self.titulo
