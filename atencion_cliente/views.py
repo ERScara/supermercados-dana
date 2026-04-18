@@ -21,13 +21,35 @@ class FAQDetailView(DetailView):
     context_object_name = 'pregunta'
 
 def inicio(request):
+    orden = request.GET.get('orden', 'newest')
     comentarios = Comentario.objects.filter(
         is_deleted=False,
         parent__isnull=True
-    ).select_related('user', 'parent').order_by('fecha')
+    ).select_related('user', 'parent').prefetch_related('votos', 'reportes', 'respuestas__votos', 'respuestas__reportes')
+
+    if orden == 'oldest':
+        comentarios = comentarios.order_by('fecha')
+    elif orden == 'best':
+        comentarios = comentarios.order_by('-puntuacion', 'fecha')
+    elif orden == 'worst':
+        comentarios = comentarios.order_by('puntuacion', 'fecha')
+    else:
+        comentarios = comentarios.order_by('-fecha')
+        orden = 'newest'
+
+    cliente = Cliente.objects.filter(usuario=request.user).first() if request.user.is_authenticated else None
+
+    if cliente:
+        for comment in comentarios:
+            voto = comment.votos.filter(cliente=cliente).first()
+            comment.user_vote = voto.voto if voto else None
+
+            for reply in comment.respuestas.all():
+                voto_reply = reply.votos.filter(cliente=cliente).first()
+                reply.user_vote = voto_reply.voto if voto else None
+    
     total = comentarios.count()
     promedio = round(sum(c.puntuacion for c in comentarios) / total, 1) if total > 0 else 0
-    
     form = ComentarioForm() if request.user.is_authenticated else None
 
     return render(request, 'atencion_cliente/portal.html', {
@@ -35,7 +57,8 @@ def inicio(request):
         'total': total,
         'promedio': promedio,
         'form': form,
-        'orden': 'newest',
+        'orden': orden,
+        'cliente': cliente,
     })
 
 def crear_comentario(request):
@@ -87,9 +110,17 @@ def votar(request, comentario_id):
             voto_obj.voto = voto
             voto_obj.save()
 
+    voto_actual = VotoComentario.objects.filter(
+        comentario = comentario,
+        cliente = cliente
+    ).first()
+
+    user_vote = voto_actual.voto if voto_actual else None
+
     return JsonResponse({
         'likes': comentario.votos.filter(voto='like').count(),
         'dislikes': comentario.votos.filter(voto='dislike').count(),
+        'user_vote': user_vote,
     })
 
 @login_required
@@ -100,6 +131,9 @@ def reportar(request, comentario_id):
 
     comentario = get_object_or_404(Comentario, pk=comentario_id)
     cliente = get_object_or_404(Cliente, usuario=request.user)
+
+    if comentario.user and comentario.user.usuario and comentario.user.usuario.is_superuser:
+        return redirect('atencion_cliente:inicio')
     
     if comentario.user != cliente:
         comentario.reportes.add(cliente)

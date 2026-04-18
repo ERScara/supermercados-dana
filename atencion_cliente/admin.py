@@ -8,6 +8,19 @@ class ComentarioAdmin(admin.ModelAdmin):
     list_filter=('is_deleted', 'fecha')
     search_fields = ('mensaje', 'user__usuario__usernane')
     ordering = ('-fecha',)
+    readonly_fields = ('likes_count', 'dislikes_count')
+
+    def get_queryset(self, request):
+        qs = super().get_queryset(request)
+        return qs.prefetch_related('votos', 'reportes').annotate(num_reportes=Count('reportes'))
+    
+    def likes_count(self, obj):
+        return obj.votos.filter(voto='like').count()
+    likes_count.short_description = 'Likes'
+
+    def dislikes_count(self, obj):
+        return obj.votos.filter(voto='dislike').count()
+    likes_count.short_description = 'Disikes'
 
     def autor(self, obj):
         if obj.user and obj.user.usuario:
@@ -18,7 +31,13 @@ class ComentarioAdmin(admin.ModelAdmin):
     def reportes_count(self, obj):
         return obj.reportes.count()
     reportes_count.short_description = 'Reportes'
+    
+@admin.register(VotoComentario)
+class VotoComentarioAdmin(admin.ModelAdmin):
+    list_display = ('comentario', 'cliente', 'voto')
+    list_filter = ('voto',)
 
-    def get_queryset(self, request):
-        qs = super().get_queryset(request)
-        return qs.prefetch_related('reportes').annotate(num_reportes=Count('reportes'))
+@admin.register(PreguntasFrecuentes)
+class PreguntasFrecuentesAdmin(admin.ModelAdmin):
+    list_display = ('titulo', 'orden')
+    list_filter = ('orden', 'titulo')

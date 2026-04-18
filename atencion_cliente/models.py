@@ -48,6 +48,14 @@ class Comentario(models.Model):
 
     def __str__(self):
         return f"{self.user} - {self.titulo} - {self.puntuacion} ⭐"
+
+    @property
+    def total_likes(self):
+        return self.votos.filter(voto='like').count()
+    
+    @property
+    def total_dislikes(self):
+        return self.votos.filter(voto='dislike').count()
     
     @property
     def estrellas(self):
@@ -57,6 +65,10 @@ class Comentario(models.Model):
     @property
     def reported(self):
         return self.reportes.exists()
+    
+    def user_vote(self, cliente):
+        voto = self.votos.filter(cliente=cliente).first()
+        return voto.voto if voto else None
     
 class VotoComentario(models.Model):
     """ Me gusta / No me gusta en un comentario """
