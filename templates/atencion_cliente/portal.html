@@ -34,190 +34,7 @@
 </div>
 
 <h1><b>Comentarios</b></h1>
-
-<div class="toggle-btn">
-    <button type="button" class="form-button" id="comments-toggle" onclick="toggleComments()">
-        Mostrar comentarios ({{ total }})
-    </button>
-</div>
-<div id="wrapper" class="hidden">
-{% for comment in comentarios %}
-<div class="main-comments">
-    <div style="border: 2px solid #ccc;"> 
-    {% if comment.user and comment.user.usuario %}
-      Comentario de <small ><strong>{{ comment.user.usuario.username }}</strong></small>
-    {% else %}
-      [Usuario Eliminado]
-    {% endif %}
-    | publicado el <small>{{ comment.fecha|date:"d/m/Y H:i" }}</small>
-    </div>
-    <br />
-    <div style="border: 2px solid #ccc;">
-       <span style="text-align:justify; text-justify:newspaper;">Asunto: {{ comment.titulo }}</span>
-    </div>
-    <div style="border: 2px solid #ccc;">   
-      <span style="text-align:justify; text-justify:newspaper;">{{ comment.mensaje }}</span>
-    </div>
-
-    {% if comment.puntuacion %}
-      <div class="stars">Ha votado con {{ comment.estrellas }} estrellas.</div>
-    {% endif %}
-
-    {% if user.is_authenticated and not comment.is_deleted and comment.user and comment.user.usuario.username != "Usuario Eliminado" %}
-    <div class="vote-box">
-        <div class="vote-item">
-            <button type="button" id="like-btn-{{ comment.id}}" class="vote-btn {% if comment.user_vote == 'like' %}active-like{% endif %}" onclick="vote('{{ comment.id }}', 'like')">+1</button>
-            <div class="vote-count" id="likes-{{ comment.id }}">
-                👍🏻 {{ comment.total_likes }}
-            </div>
-        </div>
-        <div class="vote-item">
-            <button type="button" id="dislike-btn-{{ comment.id}}" class="vote-btn {% if comment.user_vote == 'dislike' %}active-dislike{% endif %}" onclick="vote('{{ comment.id }}', 'dislike')">-1</button>
-            <div class="vote-count" id="dislikes-{{ comment.id }}">👎🏻 {{ comment.total_dislikes }}</div>
-        </div>
-    </div>
-    {% endif %}
-    {% if user.is_authenticated %}
-        {% if comment.user.usuario.is_superuser and comment.user.usuario and comment.user %}
-           <p style="background-color:lightgoldenrodyellow; width:fit-content; padding: 10px; border-radius: 20px; border: 2px solid black; cursor:default; margin-bottom: 10px; margin-left: 20px; text-align:left;">Admin</p>
-        {% elif user.is_superuser %}
-           <p style="color:grey; cursor:default; margin-bottom: 10px; margin-left: 20px; text-align:left;" title="Revise el panel de administración para ver los reportes.">[Modo Administrador]</p>
-        {% elif user == comment.user.usuario %}
-            {% if comment.is_reported_by_anyone %}
-               <em><span id="cspan">Tu comentario ha sido reportado.</span></em>
-            {% endif %}
-        {% else %}
-            {% if comment.reported %}
-               <p style="text-align:left;">&#9989; Reportado</p>
-            {% elif not comment.is_deleted and comment.user %}
-              <form method="post" action="{% url 'atencion_cliente:reportar' comment.id %}" style="display:inline;">
-                {% csrf_token %}
-                <button type="submit" class="red-flag-btn">Reportar</button>
-              </form>
-            {% endif %}
-        {% endif %}
-    {% else %}
-       <p id="end-line">Debes <a href="{% url 'clientes:login' %}" style="color:red;">iniciar sesión</a> para reportar</p>
-    {% endif %}
-
-    {% if user.is_authenticated %}
-    <div class="comment-actions">
-        <button type="button" class="form-button reply-btn" data-id="{{ comment.id }}" data-username="{% if comment.user and comment.user.usuario %}{{comment.user.usuario.username}}{% endif %}">Responder</button>
-    <br>
-    {% if user == comment.user.usuario or user.is_superuser %}
-    <button type="button" class="form-button danger" onclick="document.getElementById('delete-dialog-{{ comment.id }}').showModal();">Eliminar</button>
-    <br>
-    {% endif %}
-    <dialog id="delete-dialog-{{ comment.id }}">
-        <form method="post" action="{% url 'atencion_cliente:eliminar' comment.id %}">
-            {% csrf_token %}
-            <p>¿Estás seguro de que deseas eliminar el comentario?</p>
-            <br>
-            <button type="submit" class="form-button danger" style="margin: 0 auto; margin-bottom:10px;">Sí, eliminar.</button>
-            <button type="button" class="form-button" style="margin: 0 auto;" onclick="document.getElementById('delete-dialog-{{comment.id}}').close();">
-                Cancelar
-            </button>
-        </form>
-    </dialog>
-    </div>
-    {% endif %}
-    {% for reply in comment.respuestas.all %}
-    <div class="reply" style="margin-left:20px; border: 2px solid #ccc; padding-left: 10px; margin-top: 10px;">
-        <div style="border: 2px solid #ccc;">
-        {% if reply.user and reply.user.usuario %}
-        <small><strong>{{ reply.user.usuario.username }}</strong></small>
-        {% else %}
-        [Usuario Eliminado]
-        {% endif %}
-        | publicado el <small>{{ reply.fecha|date:"d/m/Y H:i" }}</small>
-        </div>
-        {% if reply.parent and reply.parent.user and reply.parent.user.usuario %}
-          <span>Respondiendo a @{{ reply.parent.user.usuario.username }}</span>
-        {% endif %}
-        <div style="border: 2px solid #ccc;">
-           <span style="text-align:justify; text-justify:newspaper;">Asunto: {{ reply.titulo }}</span>
-        </div>
-        <div style="border: 2px solid #ccc;">
-          <span style="text-align:justify; text-justify:newspaper;">{{ reply.mensaje }}</span>
-        </div>
-        {% if reply.puntuacion %}
-        <div class="stars">Ha votado con {{ reply.estrellas }} estrellas.</div>
-        {% endif %}
-       {% if user.is_authenticated and not reply.is_deleted and reply.user and reply.user.usuario.username != "Usuario Eliminado" %}
-        <div class="vote-box">
-            <div class="vote-item">
-                <button type="button" id="like-btn-{{ reply.id}}" class="vote-btn {% if reply.user_vote == 'like' %}active-like{% endif %}" onclick="vote('{{ reply.id }}', 'like')">+1</button>
-                <div class="vote-count" id="likes-{{ reply.id }}">
-                    👍🏻 {{ reply.total_likes }}
-                </div>
-            </div>
-            <div class="vote-item">
-                <button type="button" id="dislike-btn-{{ reply.id}}" class="vote-btn {% if reply.user_vote == 'dislike' %}active-dislike{% endif %}" onclick="vote('{{ reply.id }}', 'dislike')">-1</button>
-                <div class="vote-count" id="dislikes-{{ reply.id }}">👎🏻 {{ reply.total_dislikes }}</div>
-            </div>
-        </div>
-        {% endif %}
-        {% if user.is_authenticated %}
-        {% if reply.user.usuario.is_superuser and reply.user.usuario and reply.user  %}
-           <p style="background-color:lightgoldenrodyellow; width:fit-content; padding: 10px; border-radius: 20px; border: 2px solid black; cursor:default; margin-bottom: 10px; margin-left: 20px; text-align:left;">Admin</p>
-        {% elif user.is_superuser and not reply.user %}
-           <p style="color:grey; cursor:default; margin-bottom: 10px; margin-left: 20px; text-align:left;" title="Revise el panel de administración para ver los reportes.">[Modo Administrador]</p>
-        {% elif user == reply.user.usuario %}
-            {% if reply.is_reported_by_anyone %}
-               <em><span id="cspan">Tu comentario ha sido reportado.</span></em>
-            {% endif %}
-        {% else %}
-            {% if reply.reported %}
-               <p style="text-align:left;">&#9989; Reportado</p>
-            {% elif not reply.is_deleted and reply.user %}
-              <form method="post" action="{% url 'atencion_cliente:reportar' reply.id %}" style="display:inline;">
-                {% csrf_token %}
-                <button type="submit" class="red-flag-btn">Reportar</button>
-              </form>
-            {% endif %}
-        {% endif %}
-    {% else %}
-       <p id="end-line">Debes <a href="{% url 'clientes:login' %}" style="color:red;">iniciar sesión</a> para reportar</p>
-    {% endif %}
-    {% if user.is_authenticated %}
-    <div class="comment-actions">
-        <button type="button" class="form-button reply-btn" data-id="{{ reply.id }}" data-username="{% if reply.user and reply.user.usuario %}{{reply.user.usuario.username}}{% endif %}">Responder</button>
-    <br>
-    {% if user == reply.user.usuario or user.is_superuser %}
-    <button type="button" class="form-button danger" onclick="document.getElementById('delete-dialog-reply-{{ reply.id }}').showModal();">Eliminar</button>
-    <dialog id="delete-dialog-reply-{{ reply.id }}">
-        <form method="post" action="{% url 'atencion_cliente:eliminar' reply.id %}">
-            {% csrf_token %}
-            <p>¿Estás seguro de que deseas eliminar el comentario?</p>
-            <br>
-            <button type="submit" class="form-button danger" style="margin: 0 auto; margin-bottom:10px;">Sí, eliminar.</button>
-            <button type="button" class="form-button" style="margin: 0 auto;" onclick="document.getElementById('delete-dialog-reply-{{ reply.id }}').close();">
-                Cancelar
-            </button>
-        </form>
-    </dialog>
-    {% endif %}
-    </div>
-    {% endif %}
-    </div>
-    <br>
-    {% endfor %}
-</div>
-{% empty %}
-    <p style="text-align:center; margin-bottom:20px;">No hay comentarios aún. ¡Sé el primero en comentar!</p>
-{% endfor %}
-</div>
-<div class="selection-box">
-    <span>Ordenar por: </span>
-    <form method="get">
-        <select class="select-combo" name="orden" onchange="this.form.submit()">
-            <option value="best" {% if orden == 'best' %}selected{% endif %}>Mejor calificados</option>
-            <option value="worst" {% if orden == 'worst' %}selected{% endif %}>Peor calificados</option>
-            <option value="newest" {% if orden == 'newest' %}selected{% endif %}>Más recientes</option>
-            <option value="oldest" {% if orden == 'oldest' %}selected{% endif %}>Más antiguos</option>
-        </select>
-    </form>
-</div>
+<p style="text-align:center;">En esta sección, puede dar su opinión acerca del servicio. Lo leeremos con gusto.<p>
 <br>
 {% if user.is_authenticated %}
 <div class="form-centered">
@@ -235,10 +52,34 @@
         <button type="button" class="form-button" onclick="clearParent()">Cancelar respuesta</button>
     </form>
 </div>
+<br>
+<div class="toggle-btn">
+    <button type="button" class="form-button" id="comments-toggle" onclick="toggleComments()">
+        Mostrar comentarios ({{ total }})
+    </button>
+</div>
+<div class="selection-box">
+    <span>Ordenar por: </span>
+    <form method="get">
+        <select class="select-combo" name="orden" onchange="this.form.submit()">
+            <option value="best" {% if orden == 'best' %}selected{% endif %}>Mejor calificados</option>
+            <option value="worst" {% if orden == 'worst' %}selected{% endif %}>Peor calificados</option>
+            <option value="newest" {% if orden == 'newest' %}selected{% endif %}>Más recientes</option>
+            <option value="oldest" {% if orden == 'oldest' %}selected{% endif %}>Más antiguos</option>
+        </select>
+    </form>
+</div>
+<br>
 {% else %}
 <p style="text-align: center; margin-top:20px;">Debes <a href="{% url 'clientes:login' %}" style="font-style:italic; color: red;">iniciar sesión</a> para comentar.</p>
 {% endif %}
-
+<div id="wrapper" class="hidden">
+{% for comment in comentarios %}
+   {% include "atencion_cliente/comment_item.html" with comment=comment level=0 %}
+{% empty %}
+    <p style="text-align:center; margin-bottom:20px;">No hay comentarios aún. ¡Sé el primero en comentar!</p>
+{% endfor %}
+</div>
 {% endblock %}
 
 {% block extra_js %}

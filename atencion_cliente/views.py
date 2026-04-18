@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import ListView, DetailView, TemplateView
 from django.contrib.auth.decorators import login_required
 from django.contrib.contenttypes.models import ContentType
+from django.db.models import Prefetch
 from django.http import JsonResponse
 from .models import Comentario, VotoComentario, PreguntasFrecuentes
 from .forms import ComentarioForm
@@ -46,7 +47,7 @@ def inicio(request):
 
             for reply in comment.respuestas.all():
                 voto_reply = reply.votos.filter(cliente=cliente).first()
-                reply.user_vote = voto_reply.voto if voto else None
+                reply.user_vote = voto_reply.voto if voto_reply else None
     
     total = comentarios.count()
     promedio = round(sum(c.puntuacion for c in comentarios) / total, 1) if total > 0 else 0
@@ -62,7 +63,7 @@ def inicio(request):
     })
 
 def crear_comentario(request):
-    """ Comentario que los qulientes hacen en el área de atención al cliente. """
+    """ Comentario que los clientes hacen en el área de atención al cliente. """
 
     if request.method != 'POST':
         return redirect('atencion_cliente:inicio')
@@ -70,15 +71,20 @@ def crear_comentario(request):
     form = ComentarioForm(request.POST)
     if not form.is_valid():
         return redirect('atencion_cliente:inicio')  
-
-    parent_id = request.POST.get('parent_id')
+    
     cliente = get_object_or_404(Cliente, usuario=request.user)
 
     comentario = form.save(commit=False)
     comentario.user = cliente
+
+    parent_id = request.POST.get('parent_id')
     
     if parent_id:
-        comentario.parent_id = parent_id
+        try:
+            parent = Comentario.objects.get(id=parent_id)
+            comentario.parent = parent
+        except Comentario.DoesNotExist:
+            pass
     
     comentario.save()
 
