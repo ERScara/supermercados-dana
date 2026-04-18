@@ -36,8 +36,8 @@
 <h1><b>Comentarios</b></h1>
 
 <div class="toggle-btn">
-    <button type="button" class="form-button" onclick="toggleComments()">
-        Mostrar/Ocultar Comentarios ({{ total }})
+    <button type="button" class="form-button" id="comments-toggle" onclick="toggleComments()">
+        Mostrar comentarios ({{ total }})
     </button>
 </div>
 <div id="wrapper" class="hidden">
@@ -261,7 +261,14 @@ document.querySelectorAll('.reply-btn').forEach(btn => {
 
 function toggleComments() {
     const section = document.getElementById('wrapper')
+    const button = document.getElementById('comments-toggle')
     section.classList.toggle('hidden');
+
+    if (section.classList.contains('hidden')) {
+        button.textContent = `Mostrar comentarios (${section.querySelectorAll('.main-comments').length})`;
+    } else {
+        button.textContent = `Ocultar comentarios (${section.querySelectorAll('.main-comments').length})`;
+    }
 }
 
 function clearParent() {
@@ -271,7 +278,13 @@ function clearParent() {
     }
     document.getElementById('replying-name').textContent = '';
     document.getElementById('replying-box').style.display = 'none';
+
+    const form = document.querySelector('.form-centered form');
+    if (form) {
+        form.reset();
+    }
 }
+
 function getCookie(name) {
     let cookieValue = null;
     if (document.cookie && document.cookie !== '') {
