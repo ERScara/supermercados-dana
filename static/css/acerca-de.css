@@ -5,6 +5,21 @@ img {
     border-radius: 8px;
 }
 
+ol {
+    list-style-type:upper-roman; 
+    list-style-position:inside;
+    text-align:justify;
+    text-justify: newspaper; 
+    font-family:monospace;
+    margin: 0 auto;
+    width:800px;
+    max-width: fit-content;
+}
+
+ol li {
+    font-size: 11px;
+}
+
 hr {
     margin-block:70px;
     border: none; 
@@ -51,6 +66,7 @@ p {
     text-align: justify;
     text-justify:newspaper;
     margin: auto;
+    line-height:normal;
     margin-top: 5px;
     width: 60%;
     max-width: 1000px;

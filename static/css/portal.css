@@ -63,6 +63,15 @@ h1 {
     margin-left: 0;
 }
 
+.header {
+    background-color: lightcyan;
+    padding: 10px 20px;
+    border: 1px solid black;
+    width: fit-content;
+    border-radius: 3px;
+    margin: 0 auto;
+}
+
 .reply-thread {
     margin-right: calc(var(--level) * 20px);
     margin-left: 510px;

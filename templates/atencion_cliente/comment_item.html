@@ -2,7 +2,7 @@
 
 <div class="main-comments {% if level > 0 %}reply-thread{% endif %}">
     <div class="comment-card">
-        <div> 
+        <div class="header"> 
         {% if comment.user and comment.user.usuario %}
             Comentario de <small ><strong>{{ comment.user.usuario.username }}</strong></small>
         {% else %}
@@ -14,9 +14,11 @@
             <span>Respondiendo a @{{ replied_to }}</span>
         {% endif %}
         <br />
+        <p>Asunto:</p>
         <div class="comment-title">
-            <span style="text-align:justify; text-justify:newspaper;">Asunto: {{ comment.titulo }}</span>
+            <span style="text-align:justify; text-justify:newspaper;">{{ comment.titulo }}</span>
         </div>
+        <p>Dijo:</p>
         <div class="comment-body">   
             <span style="text-align:justify; text-justify:newspaper;">{{ comment.mensaje }}</span>
         </div>
