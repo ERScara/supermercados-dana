@@ -5,7 +5,7 @@
 
 {% block content %}
 <br>
-<h3>| Ingresa a tu cuenta|</h3>
+<h3>| Ingresa a tu cuenta |</h3>
 <br>
 
 <section class="login-form">
@@ -14,40 +14,36 @@
         <div class="form-input">
             <label for="username" id="gap-label">Usuario: </label>
             <input type="text" id="username" name="username" autocomplete="username" placeholder="User1"
-              value="{{ form.username.value|default:'' }}" class="{% if form.username.errors %}is-invalid{% endif %}">
+                value="{{ form.username.value|default:'' }}" class="{% if form.username.errors %}is-invalid{% endif %}">
             <br>
             {% if form.username.errors %}
-                 {% for error in form.username.errors %}
-                   <em><small class="invalid-feedback">{{ error }}</small></em>
-                 {% endfor %}
+            {% for error in form.username.errors %}
+            <em><small class="invalid-feedback">{{ error }}</small></em>
+            {% endfor %}
             {% endif %}
         </div>
         <br>
         <div class="form-input">
             <label for="password">Contraseña: </label>
-            <input type="password"
-                   id ="password"
-                   name="password"
-                   autocomplete="current-password"
-                   placeholder="*********"
-                   class="{% if form.password.errors %}is-invalid{% endif %}">
+            <input type="password" id="password" name="password" autocomplete="current-password" placeholder="*********"
+                class="{% if form.password.errors %}is-invalid{% endif %}">
             <br>
             {% if form.password.errors %}
-                  {% for error in form.password.errors %}
-                    <em><small class="invalid-feedback" >{{ error }}</small></em>
-                  {% endfor %}
+            {% for error in form.password.errors %}
+            <em><small class="invalid-feedback">{{ error }}</small></em>
+            {% endfor %}
             {% endif %}
         </div>
         <br>
         {% if form.non_field_errors %}
         <div class="form-errors">
-           {% for error in form.non_field_errors %}
-           <em><small class="invalid-feedback">{{ error }}</small></em>
-           {% endfor %}
+            {% for error in form.non_field_errors %}
+            <em><small class="invalid-feedback">{{ error }}</small></em>
+            {% endfor %}
         </div>
         <br>
         {% endif %}
-        <p>¿Todavía no tienes una cuenta? <br /> Regístrate 
+        <p>¿Todavía no tienes una cuenta? <br /> Regístrate
             <a href="{% url 'clientes:registro' %}">aquí</a>.
         </p>
         <br>

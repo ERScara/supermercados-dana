@@ -9,39 +9,67 @@
 {% block content %}
 <hr>
 
-<img src="{% static 'img/Esteban.jpg' %}" alt="Esteban Scaramuzza" width="auto" height="auto" title="Esteban" size="" loading="eager" class="flex-container">
+<img src="{% static 'img/Esteban.jpg' %}" alt="Esteban Scaramuzza" width="auto" height="auto" title="Esteban" size=""
+   loading="eager" class="flex-container">
 
 <h2>Acerca de mí</h2>
 
 <div>
-    <p>Mi nombre  es <i>Esteban Rodolfo Scaramuzza</i>, estudio para ser Licenciado en Biotecnología en la Universidad Nacional de Córdoba. Actualmente me encuentro en cuarto año de la carrera.<br />
-       Desde hace varios años, me he estado formando en programación de manera independiente y autodidacta, he tomado cursos de programación para aprender nuevos lenguajes y crear programas en base a ellos. <br />
-       No he estudiado programación formalmente en la universidad, todo mi conocimiento lo he ido adquiriendo de libros y manuales a través de los años y los he estado usado en algunos proyectos de la universidad, aunque nunca los haya presentado formalmente en un trabajo final. Lo que sí he adquirido de la universidad es una introducción a la Lógica Simbólica (lo cual fue una buena introducción a Prolog) y al lenguaje de programación Haskell (programación funcional) que, a mi parecer, me fueron útiles para iniciar mi trayecto en programación.<br />
-       Tengo conocimiento de distintos lenguajes: Prolog, Haskell, C/C++, JavaScript y TypeScript (Angular). He desarrollado muchos proyectos en Visual C++/CLI, uno de ellos es acerca de una interfaz gráfica hecha en WinForms del clásico comando Robocopy de Windows. Además, he probado Win32/GDI para hacer un juego de naves, bastante funcional, que posee todo lo que se espera de un juego: una pausa, niveles, lista tipo HI-Score para ver el puntaje de los jugadores, entre otras cosas.<br />
-       Hace un par de años, empecé a formarme en Python, debido a su popularidad, tanto en el ámbito científico como en el ámbito de la inteligencia artificial. <br />
-       Actualmente, me estoy formando en uso de IA para automatización de tareas, para elaborar instrucciones (prompts) y para emplear herramientas que usan internamente inteligencia artificial. <br />
-    </p>
-    <h2>Sobre el proyecto </h2>
-    <p>
-       He diseñado esta aplicación web de práctica en Django y empleando plantillas de HTML. La misma consiste en un supermercado llamado "Dana", que presenta ciertas funcionalidades prácticas que pueden hacerse en sitos web de supermercados reales. Es una buena imitación de un supermercado que permite hacer un flujo completo: desde buscar productos y añadirlos al carrito, hasta confirmar la compra (que puede efectuarse añadiendo los datos de la tarjeta) y ver comprobantes de pago de compras anteriores. <br />
-       En este supermercado ficticio, pueden seleccionarse productos por categoría. Además, puede verse una vista en detalle del producto con el precio a pagar<sup>I</sup>, seleccionar la cantidad<sup>II</sup> y proceder al pago. Esta cantidad puede modificarse en el carrito, también puede retirarse un producto del carrito.
-       Para hacer las compras, debe crearse una cuenta, la que permite a la vez tiener registro de las compras y con la que los usuarios podrán comunicarse a atención al cliente o hacer cometarios. <br />
-       La novedad es que ahora hay un sector de atención al cliente que permite ver preguntas frecuentes y, además, comentar específicamente acerca del servicio. Se puede valorar el servicio con estrellas y también los comentarios individuales, con me gusta / no me gusta. <br />
-       Otra cosa que puede hacerse es reportar comentarios de otros usuarios<sup>III</sup>, responder a otro usuario o expandir tu respuesta y eliminar<sup>IV</sup> comentarios propios. Por último, se puede cancelar una respuesta y ordernar los comentarios, por antigüedad y valoración de servicio, es decir, por la cantidad de estrellas otorgadas.
-    </p>
-    <br />
-    <ol>
+   <p>Mi nombre es <i>Esteban Rodolfo Scaramuzza</i>, estudio para ser Licenciado en Biotecnología en la Universidad
+      Nacional de Córdoba. Actualmente me encuentro en cuarto año de la carrera.<br />
+      Desde hace varios años, me he estado formando en programación de manera independiente y autodidacta, he tomado
+      cursos de programación para aprender nuevos lenguajes y crear programas en base a ellos. <br />
+      No he estudiado programación formalmente en la universidad, todo mi conocimiento lo he ido adquiriendo de libros y
+      manuales a través de los años y los he estado usado en algunos proyectos de la universidad, aunque nunca los haya
+      presentado formalmente en un trabajo final. Lo que sí he adquirido de la universidad es una introducción a la
+      Lógica Simbólica (lo cual fue una buena introducción a Prolog) y al lenguaje de programación Haskell (programación
+      funcional) que, a mi parecer, me fueron útiles para iniciar mi trayecto en programación.<br />
+      Tengo conocimiento de distintos lenguajes: Prolog, Haskell, C/C++, JavaScript y TypeScript (Angular), así como
+      tengo conocimientos en base de datos relacionales (SQL) y no relacionales. He desarrollado muchos proyectos en
+      Visual C++/CLI, uno de ellos es acerca de una interfaz gráfica hecha en WinForms del clásico comando Robocopy de
+      Windows. Además, he probado Win32/GDI para hacer un juego de naves, bastante funcional, que posee todo lo que se
+      espera de un juego: una pausa, niveles, lista tipo HI-Score para ver el puntaje de los jugadores, entre otras
+      cosas.<br />
+      Hace un par de años, empecé a formarme en Python, debido a su popularidad, tanto en el ámbito científico como en
+      el ámbito de la inteligencia artificial. <br />
+      Actualmente, me estoy formando en uso de IA para automatización de tareas, para elaborar instrucciones (prompts) y
+      para emplear herramientas que usan internamente inteligencia artificial. <br />
+   </p>
+   <h2>Sobre el proyecto </h2>
+   <p>
+      He diseñado esta aplicación web de práctica en Django y empleando plantillas de HTML. La misma consiste en un
+      supermercado llamado "Dana", que presenta ciertas funcionalidades prácticas que pueden hacerse en sitos web de
+      supermercados reales. Es una buena imitación de un supermercado que permite hacer un flujo completo: desde buscar
+      productos y añadirlos al carrito, hasta confirmar la compra (que puede efectuarse añadiendo los datos de la
+      tarjeta) y ver comprobantes de pago de compras anteriores. <br />
+      En este supermercado ficticio, pueden seleccionarse productos por categoría. Además, puede verse una vista en
+      detalle del producto con el precio a pagar<sup>I</sup>, seleccionar la cantidad<sup>II</sup> y proceder al pago.
+      Esta cantidad puede modificarse en el carrito, también puede retirarse un producto del carrito.
+      Para hacer las compras, debe crearse una cuenta, la que permite a la vez tiener registro de las compras y con la
+      que los usuarios podrán comunicarse a atención al cliente o hacer cometarios. <br />
+      La novedad es que ahora hay un sector de atención al cliente que permite ver preguntas frecuentes y, además,
+      comentar específicamente acerca del servicio. Se puede valorar el servicio con estrellas y también los comentarios
+      individuales, con me gusta / no me gusta. <br />
+      Otra cosa que puede hacerse es reportar comentarios de otros usuarios<sup>III</sup>, responder a otro usuario o
+      expandir tu respuesta y eliminar<sup>IV</sup> comentarios propios. Por último, se puede cancelar una respuesta y
+      ordernar los comentarios, por antigüedad y valoración de servicio, es decir, por la cantidad de estrellas
+      otorgadas.
+   </p>
+   <br />
+   <ol>
       <li>Según si es con descuento o sin descuento.</li>
       <li>Depende únicamente del stock del producto. </li>
       <li>Pero no pueden reportarse comentarios del Admin, pues se consideran comentarios de soporte.</li>
-      <li>Incluye un diálogo de confirmación de eliminación de comentarios muy accesible. El Admin es el único que puede eliminar cualquier comentario, pero debe hacerlo por una razón específica, como en el caso de los reportes.</li>
-    </ol>
+      <li>Incluye un diálogo de confirmación de eliminación de comentarios muy accesible. El Admin es el único que puede
+         eliminar cualquier comentario, pero debe hacerlo por una razón específica, como en el caso de los reportes.
+      </li>
+   </ol>
 </div>
 
 <hr>
 
 <a href="{% url 'productos:inicio' %}" class="btn-volver">
-        &#8592; Volver al inicio
+   &#8592; Volver al inicio
 </a>
 
 {% endblock %}

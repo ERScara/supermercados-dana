@@ -9,17 +9,28 @@ Aplicación web de supermercado desarrollada con **Django** y templates HTML/CSS
 **Esteban Rodolfo Scaramuzza**
 Proyecto — Marzo 2026
 
-
 ## 📋 Tabla de contenidos
 
-- [Descripción](#descripción)
-- [Características](#características)
-- [Tecnologías](#tecnologías)
-- [Instalación](#instalación)
-- [Apps de Django](#apps-de-django)
-- [Modelos](#modelos)
-- [Categorías de productos](#categorías-de-productos)
-- [Seguridad](#seguridad)
+- [🛒 Supermercados Dana](#-supermercados-dana)
+  - [Autor](#autor)
+  - [📋 Tabla de contenidos](#-tabla-de-contenidos)
+  - [Descripción](#descripción)
+  - [Características](#características)
+  - [Tecnologías](#tecnologías)
+  - [Instalación](#instalación)
+    - [Requisitos previos](#requisitos-previos)
+    - [Pasos](#pasos)
+  - [Apps de Django](#apps-de-django)
+    - [`productos`](#productos)
+    - [`clientes`](#clientes)
+    - [`carrito`](#carrito)
+    - [`compras`](#compras)
+    - [`atencion_cliente`](#atencion_cliente)
+    - [`acerca_de`](#acerca_de)
+  - [Modelos](#modelos)
+  - [Categorías de productos](#categorías-de-productos)
+  - [Seguridad](#seguridad)
+  - [Video](#video)
 
 ---
 
@@ -106,21 +117,27 @@ Accedé a `http://127.0.0.1:8000` en el navegador.
 ## Apps de Django
 
 ### `productos`
+
 Gestiona el catálogo de productos y sus categorías. Incluye vistas para listar, filtrar por categoría, ver detalle y buscar productos globalmente.
 
 ### `clientes`
+
 Extiende el sistema de usuarios de Django con perfil personalizable, avatar, estado Premium, preferencias de categorías y tickets de soporte.
 
 ### `carrito`
+
 Maneja el carrito de compras por usuario. Permite agregar productos, modificar cantidades y eliminar items. Aplica descuentos Premium automáticamente.
 
 ### `compras`
+
 Gestiona el proceso de checkout con validación de datos bancarios simulados. Genera un historial de compras por cliente y actualiza el stock de productos.
 
 ### `atencion_cliente`
+
 Ofrece un espacio para que los clientes puedan expresar sus inquietudes, tiene un sitio de preguntas frecuentes y una sección de comentarios.
 
 ### `acerca_de`
+
 Sección especial acerca del creador del sitio. Aquí se encuentra una imagen del autor, una breve biografía del mismo y una descripción del proyecto.
 
 ---
@@ -203,6 +220,7 @@ Compra
     └── precio_original
 
 ```
+
 ---
 
 ## Categorías de productos
@@ -230,4 +248,10 @@ Compra
 
 ---
 
+## Video
 
+Aquí se proporciona un video de presentación del proyecto.
+
+![Supermercados Dana](https://mega.nz/file/ViYATYjC#jujNY4tcO5r9PyP12hvzNCJKPhycPXqq5zvoiSQ4vXY)
+
+---
