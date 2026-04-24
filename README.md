@@ -252,7 +252,7 @@ Compra
 
 Aquí se proporciona un video de presentación y un instructivo del proyecto.
 
-Video: https://mega.nz/file/ViYATYjC#jujNY4tcO5r9PyP12hvzNCJKPhycPXqq5zvoiSQ4vXY
-Instructivo: https://mega.nz/file/IzwChDoA#lRrz2y-dKkrwk05-Ic3rEnC_ohkJqyeEFwGI4vk4Ex4
+- Video: https://mega.nz/file/ViYATYjC#jujNY4tcO5r9PyP12hvzNCJKPhycPXqq5zvoiSQ4vXY
+- Instructivo: https://mega.nz/file/IzwChDoA#lRrz2y-dKkrwk05-Ic3rEnC_ohkJqyeEFwGI4vk4Ex4
 
 ---
