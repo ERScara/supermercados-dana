@@ -252,6 +252,6 @@ Compra
 
 Aquí se proporciona un video de presentación del proyecto.
 
-Video: <https://mega.nz/file/ViYATYjC#jujNY4tcO5r9PyP12hvzNCJKPhycPXqq5zvoiSQ4vXY>
+Video: https://mega.nz/file/ViYATYjC#jujNY4tcO5r9PyP12hvzNCJKPhycPXqq5zvoiSQ4vXY
 
 ---
