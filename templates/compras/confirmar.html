@@ -53,7 +53,9 @@
         <span>Cantidad: {{ item.cantidad }}</span>
         <span>Precio original unitario: ${{ item.producto.precio }} c/u</span>
         <span>Precio con descuento: ${{ item.precio_unitario }} c/u</span>
+        {% if item.tiene_descuento %}
         <span>&#127775; Premium</span>
+        {% endif %}
 
         {% with total_ahorro=compra.ahorro_total %}
         <div
@@ -65,7 +67,9 @@
     <br>
     {% endfor %}
     <h3>Total ahorrado: ${{ compra.ahorro_total|floatformat:2 }}</h3>
+    {% if compra.ahorro_total > 0 %}
     <small style="text-align: center;">Se aplica un descuento del 30%</small>
+    {% endif %}
 
     <hr>
     <div class="confirmar-total">
