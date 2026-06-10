@@ -1,0 +1,143 @@
+
+.comentario-editar-wrapper {
+  max-width: 600px;
+  margin: 30px auto;
+  padding: 10px 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  border-top: 3px solid navy;
+}
+
+.comentario-editar-titulo {
+    font-size: 24px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.puntuacion-label {
+    font-weight: 600;
+    font-size: 18px;
+    color: #333;
+    margin-bottom: 8px;
+    display: block;
+}
+
+.puntuacion-opciones input[type="radio"] {
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    margin-right: auto;
+    cursor: pointer;
+    margin-top:10px;
+}
+
+.puntuacion-opciones label {
+    display: flex;
+    flex-direction: row;
+    margin-right: auto;
+    position: relative;
+    margin-left: 100px;
+    margin-top:10px;
+}
+
+.comentario-editar-acciones {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  background-color: #f9f9f9;
+  padding: 10px;
+  width: fit-content;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+textarea {
+    padding: 10px;
+    border-radius: 8px;
+    background-color: antiquewhite;
+    border-radius: 5px;
+    margin: 0 auto;
+    width: 200%;
+    max-width:500px;
+    height: 100px;
+    resize: vertical;
+}
+
+textarea:focus {
+    transition: border-color 0.3s ease;
+    border-color: lightgray;
+    outline: none;
+}
+
+input {
+    padding: 10px;
+    border-radius: 8px;
+    background-color: antiquewhite;
+    border-radius: 5px;
+    margin: 0 auto;
+    width: 200%;
+    max-width:500px;
+}
+
+.form-input {
+    gap: 6px;
+    justify-items: center;
+}
+
+
+.form-input label {
+    font-weight: 600;
+    font-style: bold;
+    font-size: 18px;
+    gap: 6px;
+}
+
+.btn-cancelar {
+  color: #888;
+  text-decoration: none;
+  font-size: 14px;
+  padding: 4px 8px;
+  cursor: pointer;
+  background-color: #fa593c;
+  color: white;
+  border-radius: 6px;
+  border: 1px solid black;
+  width: fit-content;
+}
+
+.btn-cancelar:hover {
+  background-color: coral;
+}
+
+.form-button {
+   background-color: #fa593c;
+   margin: 0;
+   color:white;
+   border: 2px solid;
+   border-color: black;
+   display: flex;
+   position: inherit;
+   border-radius: 8px;
+   padding: 10px 20px;
+   font-weight: 600;
+   cursor: pointer;
+}
+
+.btn-editar-comentario {
+  background: none;
+  border: 1px solid #3498db;
+  color: #3498db;
+  padding: 4px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 12px;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.btn-editar-comentario:hover {
+  background-color: #3498db;
+  color: white;
+}

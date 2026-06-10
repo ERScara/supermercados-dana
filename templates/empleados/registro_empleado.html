@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/empleados.css' %}">
+{% endblock %}
+
+{% block title %}Registrar Empleado &mdash; Dana{% endblock %}
+
+{% block content %}
+<div class="empleado-wrapper">
+    <h2>Registrar nuevo empleado</h2>
+    <hr>
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <h3>Datos de acceso</h3>
+        <div class="form-input">
+            <label>{{ form.username.label }}</label>
+            {{ form.username }}
+            {% if form.username.errors %}
+            <em><small class="invalid-feedback">
+                    {{form.username.errors|join:', '}}
+                </small></em>
+            {% endif %}
+        </div>
+
+        <div class="form-input">
+            <label>{{ form.first_name.label }}</label>
+            {{ form.first_name }}
+        </div>
+
+        <div class="form-input">
+            <label>{{ form.last_name.label }}</label>
+            {{ form.last_name }}
+        </div>
+
+        <div class="form-input">
+            <label>{{ form.email.label }}</label>
+            {{ form.email }}
+            {% if form.email.errors %}
+            <em><small class="invalid-feedback">
+                    {{ form.email.errors|join:', '}}
+                </small></em>
+            {% endif %}
+        </div>
+
+        <div class="form-input">
+            <label>{{ form.password.label }}</label>
+            {{ form.password }}
+        </div>
+
+        <hr>
+        <h3>Datos del empleado</h3>
+
+        <div class="form-input">
+            <label>{{ form.legajo.label }}</label>
+            {{ form.legajo }}
+            {% if form.legajo.errors %}
+            <em><small class="invalid-feedback">
+                    {{ form.legajo.errors|join:', '}}
+                </small></em>
+            {% endif %}
+        </div>
+
+        <div class="form-input">
+            <label>{{ form.sector.label }}</label>
+            {{ form.sector }}
+        </div>
+        
+        <br>
+        <div class="empleado-form-acciones">
+            <button type="submit" class="form-button">Crear empleado</button>
+            <a href="{% url 'empleados:lista_empleados' %}" class="btn-cancelar">
+                Cancelar
+            </a>
+        </div>
+    </form>
+</div>
+{% endblock %}

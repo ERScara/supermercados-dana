@@ -1,0 +1,234 @@
+/* ==== REGISTRO EMPLEADO ====  */
+.empleado-wrapper {
+    max-width: 600px;
+    margin: 30px auto;
+    padding: 20px; 
+    color: black;
+    background-color: whitesmoke;
+    border-radius:12px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+}
+
+.empleado-wrapper .form-input label {
+    font-weight: 600;
+    font-size: 15px;
+    color: #343f44;
+    margin-bottom: 4px;
+}
+
+.empleado-wrapper .form-input input,
+.empleado-wrapper .form-input select {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 14px;
+    box-sizing: border-box;
+    font-family: inherit;
+    transition: border-color 0.2s ease;
+}
+
+.empleado-wrapper .form-input input:focus,
+.empleado-wrapper .form-input select:focus {
+    border-color: #fa593c;
+    outline: none;
+}
+
+.empleado-form-acciones {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.empleado-wrapper h2 {
+    font-size: 24px;
+    color: #343f44;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.empleado-wrapper h3 {
+    font-size: 18px;
+    color: #343f44;
+    margin: 20px 0 10px;
+    padding-bottom: 5px;
+    border-bottom: 2px solid bisque;
+    background: none;
+    border-radius: 0;
+    display: block;
+    font-style: normal;
+    background-color: transparent;
+}
+
+.form-button {
+    background-color: #fa593c;
+    margin: 0;
+    color: white;
+    border: 2px solid;
+    border-color: black;
+    display: flex;
+    position: inherit;
+    border-radius: 8px;
+    padding: 10px 20px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+/* ==== LISTA DE EMPLEADOS ====  */
+.empleados-wrapper {
+    max-width: 900px;
+    margin: 30px auto;
+    padding: 0 20px;
+}
+
+.empleados-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.empleados-header h2 {
+    font-size: 24px;
+    color: #343f44;
+    margin: 0;
+}
+
+/* ==== TABLA DE EMPLEADOS ====  */
+.empleados-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08)     
+}
+
+.empleados-table th {
+    background-color: #343f44;
+    color: white;
+    padding: 12px 16px;
+    text-align: left;
+    font-weight: 600;
+}
+
+.empleados-table td {
+    padding: 12px 16px;
+    border-bottom: 1px solid #f0f0f0;
+    color: #555;
+}
+
+.empleados-table tr:hover td {
+    background-color: #fdf6f0;
+}
+
+/* ==== MEDALLA DE SECTOR ====  */
+.sector-badge {
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.sector-atencion { 
+    background-color: #d5e8f0; 
+    color: #2176ae;
+}
+
+.sector-deposito {
+    background-color: #d5f0e0;
+    color: #1e8449;
+}
+
+.sector-caja {
+    background-color: #fef9e7;
+    color: #b7950b;
+}
+
+.sector-sistemas {
+    background-color: #f0d5f0;
+    color: #7d3c98;
+}
+
+/* ==== ESTADO ACTIVO/INACTIVO ====  */
+.estado-activo {
+    color: #27ae60;
+    font-weight: 600;
+    font-size: 13px;
+}
+
+.estado-inactivo {
+    color: #e74c3c;
+    font-weight: 600;
+    font-size: 13px;
+}
+
+/* ==== ACCIONES DE LA TABLA ====  */
+.empleado-acciones {
+    display: flex;
+    gap: 8px;
+}
+
+.btn-desactivar {
+    background: none;
+    border: 1px solid #e74c3c;
+    color: #e74c3c;
+    padding: 4px 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 12px;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.btn-desactivar:hover {
+    background-color: #e74c3c;
+    color: white;
+}
+
+.btn-ver-empleado {
+    background: none;
+    border: 1px solid #3498db;
+    color: #3498db;
+    padding: 4px 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 12px;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.btn-ver-empleado:hover {
+    background-color: #3498db;
+    color: white;
+}
+
+/* ==== VACÍO ====  */
+.empleados-vacio {
+    text-align: center;
+    padding: 60px 20px;
+    color: #888;
+    font-size: 16px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.btn-cancelar {
+    color: #888;
+    text-decoration: none;
+    font-size: 14px;
+    padding: 4px 8px;
+    cursor: pointer;
+    background-color: #fa593c;
+    color: white;
+    border-radius: 6px;
+    border: 1px solid black;
+    width: fit-content;
+}
+
+.btn-cancelar:hover {
+    background-color: coral;
+}

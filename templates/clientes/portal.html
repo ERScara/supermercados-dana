@@ -38,7 +38,7 @@
 <br>
 {% if user.is_authenticated %}
 <div class="form-centered">
-    <form  method="post" action="{% url 'atencion_cliente:crear_comentario' %}">
+    <form  method="post" action="{% url 'clientes:crear_comentario' %}">
         {% csrf_token %}
         <input type="hidden" name="parent_id" id="parent_id" value="">
         <div id="replying-box" style="display:none; margin-bottom:10px;">
@@ -75,7 +75,7 @@
 {% endif %}
 <div id="wrapper" class="hidden">
 {% for comment in comentarios %}
-   {% include "atencion_cliente/comment_item.html" with comment=comment level=0 %}
+   {% include "clientes/comment_item.html" with comment=comment level=0 %}
 {% empty %}
     <p style="text-align:center; margin-bottom:20px;">No hay comentarios aún. ¡Sé el primero en comentar!</p>
 {% endfor %}
@@ -142,7 +142,7 @@ function getCookie(name) {
 }
 
 function vote(commentId, voto) {
-    fetch(`/atencion_cliente/votar/${commentId}/`, {
+    fetch(`/clientes/atencion/votar/${commentId}/`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded',

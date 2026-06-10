@@ -1,40 +1,54 @@
 {% load static %}
 
 <nav class="menu">
-   <ul>
-     <li id="align">
-        <a href="{% url 'productos:inicio' %}" id='init'>
-            <img src="{% static 'img/carrito.svg'%}" alt="Supermercados Dana" class="brand-logo">
+    <ul>
+        <li id="align">
+            <a href="{% url 'productos:inicio' %}" id='init'>
+                <img src="{% static 'img/carrito.svg'%}" alt="Supermercados Dana" class="brand-logo">
+            </a>
+        </li>
+        <li>
+            <a href="{% url 'productos:lista' %}"
+            class="{% if request.path == '/productos/' %}active{% endif %}">
+            Productos
+            </a>
+        </li>
+        <li>
+            <a href="{% url 'carrito:ver' %}" 
+            class="{% if request.path == '/carrito/' %}active{% endif %}">
+            Compras
+            </a>
+        </li>
+        {% if request.user.is_superuser %}
+        <li>
+            <a href="{% url 'empleados:lista_empleados' %}" 
+            class="{% if request.path == '/empleados/' %}active{% endif %}">
+            Empleados
+            </a>
+        </li>
+        {% elif request.user.is_staff %}
+        <li>
+            <a href="/admin/">
+                Panel Staff
+            </a>
+        </li>
+        {% endif %}
+        {% if request.user.is_authenticated %}
+        <li>
+            <a href="{% url 'clientes:perfil' %}" id="cuenta"
+                class="{% if request.path == '/perfil/' %}active{% endif %}">
+                Mi Cuenta
+                </a>
+        </li>
+        {% else %}
+        <li>
+        <a href="{% url 'clientes:registro' %}" id="registro"
+            class="{% if request.path == '/registro/' %}active{% endif %}">
+            Registrarse 
         </a>
-     </li>
-     <li>
-        <a href="{% url 'productos:lista' %}"
-        class="{% if request.path == '/productos/' %}active{% endif %}">
-         Productos
-        </a>
-     </li>
-     <li>
-        <a href="{% url 'carrito:ver' %}" 
-         class="{% if request.path == '/carrito/' %}active{% endif %}">
-         Compras
-        </a>
-     </li>
-     {% if request.user.is_authenticated %}
-     <li>
-       <a href="{% url 'clientes:perfil' %}" id="cuenta"
-         class="{% if request.path == '/perfil/' %}active{% endif %}">
-         Mi Cuenta
-        </a>
-     </li>
-     {% else %}
-     <li>
-       <a href="{% url 'clientes:registro' %}" id="registro"
-        class="{% if request.path == '/registro/' %}active{% endif %}">
-         Registrarse 
-       </a>
-     </li>
-     {% endif %}
-   </ul>
+        </li>
+        {% endif %}
+    </ul>
 </nav>
 <nav>
     <div class="nav-auth">

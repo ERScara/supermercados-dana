@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+Empleados &ndash; Dana
+{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/empleados.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="perfil-wrapper">
+    <div class="resenas-header">
+        <h2>Empleados de Dana</h2>
+        <a href="{% url 'empleados:registro_empleados' %}" class="form-button">
+            + Nuevo empleado
+        </a>
+    </div>
+    <hr>
+
+    {% if empleados %}
+    <table class="historial-table">
+        <thead>
+            <tr>
+                <th>Usuario</th>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Legajo</th>
+                <th>Sector</th>
+                <th>Fecha de alta</th>
+                <th>Estado</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for empleado in empleados %}
+            <tr>
+                <td>{{ empleado.usuario.username }}</td>
+                <td>{{ empleado.usuario.get_full_name|default:'&mdash;' }}</td>
+                <td>{{ empleado.usuario.last_name|default:'&mdash;' }}</td>
+                <td>{{ empleado.legajo }}</td>
+                <td>
+                    <span class="sector-badge sector-{{ empleado.sector }}">
+                        {{ empleado.get_sector_display }}
+                    </span>
+                </td>
+                <td>{{ empleado.fecha_alta|date:"d/m/Y" }}</td>
+                <td>{% if empleado.activo %}
+                    <span style="color: #27ae60">✓ Activo</span>
+                    {% else %}
+                    <span style="color:#e74c3c">✗ Inactivo</span>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <div class="empleados-vacio">
+        <p>No hay empleados registrados.</p>
+        <a href="{% url 'empleados:registro_empleados' %}" class="form-button">
+            + Registrar empleado
+        </a>
+    </div>
+    {% endif %}
+</div>
+
+{% endblock %}

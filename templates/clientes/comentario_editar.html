@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extra_css %}
+   <link rel="stylesheet" href="{% static 'css/atencion.css' %}">
+{% endblock %}
+
+{% block title %}
+    Editar comentario &ndash; Dana
+{% endblock %}
+
+{% block content %}
+<div class="comentario-editar-wrapper">
+    <h2 class="comentario-editar-titulo">Editar comentario</h2>
+    <hr />
+
+    <form method="POST">
+        {% csrf_token %}
+        
+        <!-- Puntuación -->
+        <div class="form-input">
+            <label class="puntuacion-label">{{ form.puntuacion.label }}</label>
+            <div class="puntuacion-opciones">
+                {{ form.puntuacion }}
+            </div>
+            {% if form.puntuacion.errors %}
+            <em>
+                <small class="invalid-feedback">
+                    {{ form.puntuacion.errors|join:', ' }}
+                </small>
+            </em>
+            {% endif %}
+        </div>
+        <br />
+        <!-- Título -->
+        <div class="form-input">
+            <label>{{ form.titulo.label }}</label>
+            {{ form.titulo }}
+            {% if form.titulo.errors %}
+            <em>
+                <small class="invalid-feedback">
+                    {{ form.titulo.errors|join:', ' }}
+                </small>
+            </em>
+            {% endif %}
+        </div>
+        <br />
+        <!-- Mensaje -->
+         <div class="form-input">
+            <label>{{ form.mensaje.label }}</label>
+            {{ form.mensaje }}
+            <br>
+            <small id="char-counter">
+                Caracteres: <span id="char-count">0</span> / 3000
+            </small>
+            {% if form.mensaje.errors %}
+            <em>
+                <small class="invalid-feedback">
+                    {{ form.mensaje.errors|join:', ' }}
+                </small>
+            </em>
+            {% endif %}
+         </div>
+         <br />
+
+         <div class="comentario-editar-acciones">
+            <button type="submit" class="form-button">
+                Guardar cambios
+            </button>
+            <a href="{% url 'clientes:inicio' %}" class="btn-cancelar">
+                Cancelar
+            </a>
+         </div>
+    </form>
+</div>
+
+{% block extra_js %}
+<script>
+    const textarea = document.getElementById('comentario-mensaje');
+    const counter = document.getElementById('char-count');
+
+    if (textarea && counter) {
+        counter.textContent = textarea.value.length;
+        textarea.addEventListener('input', function () {
+            counter.textContent = this.value.length;
+            counter.style.color = this.value.length >= 2800 ? '#fa593c' : '#888';
+        });
+    }
+</script>
+{% endblock %}
+
+{% endblock %}

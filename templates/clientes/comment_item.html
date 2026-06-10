@@ -54,7 +54,7 @@
                 {% if comment.reported %}
                     <p style="text-align:left;">&#9989; Reportado</p>
                 {% elif not comment.is_deleted and comment.user %}
-                    <form method="post" action="{% url 'atencion_cliente:reportar' comment.id %}" style="display:inline;">
+                    <form method="post" action="{% url 'clientes:reportar_comentario' comment.id %}" style="display:inline;">
                     {% csrf_token %}
                     <button type="submit" class="red-flag-btn">Reportar</button>
                     </form>
@@ -63,9 +63,17 @@
         {% else %}
             <p id="end-line">Debes <a href="{% url 'clientes:login' %}" style="color:red;">iniciar sesión</a> para reportar</p>
         {% endif %}
+        {% if comment.es_empleado %}
+        <span style="background-color:limegreen; width:fit-content; padding: 10px; border-radius: 20px; border: 2px solid black; cursor:default; margin-bottom: 10px; margin-left: auto; text-align:left;">Staff Dana</span>
+        {% endif %}
     <br>
+    
     {% if user.is_authenticated %}
     <div class="comment-actions">
+        {% if request.user.is_authenticated and comment.user.usuario == request.user and not comment.is_deleted %}
+        <a href="{% url 'clientes:comentario_editar' comment.id %}" class="form-button reply-btn" style="width: fit-content;">Editar</a>
+        {% endif %}
+        <br>
         <button type="button" class="form-button reply-btn" data-id="{{ comment.id }}" data-username="{% if comment.user and comment.user.usuario %}{{comment.user.usuario.username}}{% endif %}">Responder</button>
     <br>
     {% if user == comment.user.usuario or user.is_superuser %}
@@ -73,7 +81,7 @@
     <br>
     {% endif %}
     <dialog id="delete-dialog-{{ comment.id }}">
-        <form method="post" action="{% url 'atencion_cliente:eliminar' comment.id %}">
+        <form method="post" action="{% url 'clientes:eliminar_comentario' comment.id %}">
             {% csrf_token %}
             <p>¿Estás seguro de que deseas eliminar el comentario?</p>
             <br>
@@ -89,6 +97,6 @@
 </div>
 <div class="comment-children">
 {% for reply in comment.respuestas.all %}
-    {% include "atencion_cliente/comment_item.html" with comment=reply level=level|add:1 replied_to=comment.user.usuario.username %}
+    {% include "clientes/comment_item.html" with comment=reply level=level|add:1 replied_to=comment.user.usuario.username %}
 {% endfor %}
 </div>
