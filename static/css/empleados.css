@@ -2,11 +2,11 @@
 .empleado-wrapper {
     max-width: 600px;
     margin: 30px auto;
-    padding: 20px; 
+    padding: 20px;
     color: black;
     background-color: whitesmoke;
-    border-radius:12px;
-    box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
 }
 
 .empleado-wrapper .form-input label {
@@ -97,20 +97,20 @@
 
 /* ==== TABLA DE EMPLEADOS ====  */
 .empleados-table {
-    width: 100%;
+    width: 90%;
     border-collapse: collapse;
     font-size: 14px;
     background: white;
     border-radius: 12px;
     overflow: hidden;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.08)     
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 
 .empleados-table th {
     background-color: #343f44;
     color: white;
     padding: 12px 16px;
-    text-align: left;
+    text-align: center;
     font-weight: 600;
 }
 
@@ -121,7 +121,7 @@
 }
 
 .empleados-table tr:hover td {
-    background-color: #fdf6f0;
+    background-color: lightblue;
 }
 
 /* ==== MEDALLA DE SECTOR ====  */
@@ -132,8 +132,8 @@
     font-weight: 600;
 }
 
-.sector-atencion { 
-    background-color: #d5e8f0; 
+.sector-atencion {
+    background-color: #d5e8f0;
     color: #2176ae;
 }
 
@@ -205,6 +205,14 @@
     color: white;
 }
 
+.resenas-header {
+    justify-items: center;
+}
+
+.resenas-header-title {
+    text-align: center;
+}
+
 /* ==== VACÍO ====  */
 .empleados-vacio {
     text-align: center;
@@ -213,7 +221,7 @@
     font-size: 16px;
     background: white;
     border-radius: 12px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 
 .btn-cancelar {

@@ -40,7 +40,7 @@ h1 {
   margin: 0 auto;
   max-width: 600px;
   border-radius: 6px;
-  align-items: left;
+  align-items: center;
   hyphens: auto;
   background-color: blanchedalmond;
 }
@@ -202,12 +202,6 @@ puntuacion-radio li {
   padding-right: 10px;
   border-radius: 6px;
   background-color: #f9f9f9;
-}
-
-.comment-actions {
-  margin-left: 240px;
-  gap: 10px;
-  margin-bottom: 15px;
 }
 
 .red-flag-btn {

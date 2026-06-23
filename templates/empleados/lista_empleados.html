@@ -12,15 +12,15 @@ Empleados &ndash; Dana
 {% block content %}
 <div class="perfil-wrapper">
     <div class="resenas-header">
-        <h2>Empleados de Dana</h2>
-        <a href="{% url 'empleados:registro_empleados' %}" class="form-button">
+        <h2 class="resenas-header-title">Empleados de Dana</h2>
+        <a href="{% url 'empleados:registro_empleados' %}" class="form-button" style="width: fit-content;">
             + Nuevo empleado
         </a>
     </div>
     <hr>
 
     {% if empleados %}
-    <table class="historial-table">
+    <table class="empleados-table">
         <thead>
             <tr>
                 <th>Usuario</th>
@@ -32,7 +32,7 @@ Empleados &ndash; Dana
                 <th>Estado</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody style="display: table-row; display: table-row-group; overflow-y: auto; table-layout: fixed;">
             {% for empleado in empleados %}
             <tr>
                 <td>{{ empleado.usuario.username }}</td>
@@ -40,7 +40,7 @@ Empleados &ndash; Dana
                 <td>{{ empleado.usuario.last_name|default:'&mdash;' }}</td>
                 <td>{{ empleado.legajo }}</td>
                 <td>
-                    <span class="sector-badge sector-{{ empleado.sector }}">
+                    <span class="sector-badge sector-{{ empleado.sector }}" style="font-size: 30px;">
                         {{ empleado.get_sector_display }}
                     </span>
                 </td>

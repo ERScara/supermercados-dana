@@ -53,7 +53,7 @@
             {% else %}
                 {% if comment.reported %}
                     <p style="text-align:left;">&#9989; Reportado</p>
-                {% elif not comment.is_deleted and comment.user %}
+                {% elif not comment.is_deleted and user.es_empleado and comment.user %}
                     <form method="post" action="{% url 'clientes:reportar_comentario' comment.id %}" style="display:inline;">
                     {% csrf_token %}
                     <button type="submit" class="red-flag-btn">Reportar</button>
@@ -64,36 +64,36 @@
             <p id="end-line">Debes <a href="{% url 'clientes:login' %}" style="color:red;">iniciar sesión</a> para reportar</p>
         {% endif %}
         {% if comment.es_empleado %}
-        <span style="background-color:limegreen; width:fit-content; padding: 10px; border-radius: 20px; border: 2px solid black; cursor:default; margin-bottom: 10px; margin-left: auto; text-align:left;">Staff Dana</span>
+        <span style="background-color:limegreen; width:fit-content; padding: 10px; margin-top: 40px; border-radius: 20px; border: 2px solid black; cursor:default; margin-bottom: 10px; margin-right: auto; text-align:left;">Staff Dana</span>
         {% endif %}
     <br>
     
     {% if user.is_authenticated %}
-    <div class="comment-actions">
-        {% if request.user.is_authenticated and comment.user.usuario == request.user and not comment.is_deleted %}
-        <a href="{% url 'clientes:comentario_editar' comment.id %}" class="form-button reply-btn" style="width: fit-content;">Editar</a>
-        {% endif %}
-        <br>
-        <button type="button" class="form-button reply-btn" data-id="{{ comment.id }}" data-username="{% if comment.user and comment.user.usuario %}{{comment.user.usuario.username}}{% endif %}">Responder</button>
-    <br>
-    {% if user == comment.user.usuario or user.is_superuser %}
-    <button type="button" class="form-button danger" onclick="document.getElementById('delete-dialog-{{ comment.id }}').showModal();">Eliminar</button>
-    <br>
-    {% endif %}
-    <dialog id="delete-dialog-{{ comment.id }}">
-        <form method="post" action="{% url 'clientes:eliminar_comentario' comment.id %}">
-            {% csrf_token %}
-            <p>¿Estás seguro de que deseas eliminar el comentario?</p>
-            <br>
-            <button type="submit" class="form-button danger" style="margin: 0 auto; margin-bottom:10px;">Sí, eliminar.</button>
-            <button type="button" class="form-button" style="margin: 0 auto;" onclick="document.getElementById('delete-dialog-{{comment.id}}').close();">
-                Cancelar
-            </button>
-        </form>
-    </dialog>
+    <div>
+        <div style="display:flex; flex-direction: row; gap: 10px; margin-top: 30px; margin-left: 150px; margin-bottom: 40px;">
+            {% if request.user.is_authenticated and comment.user.usuario == request.user and not comment.is_deleted %}
+            <a href="{% url 'clientes:comentario_editar' comment.id %}" class="form-button reply-btn" style="width: fit-content;">Editar</a>
+            {% endif %}
+            <a href="#resp" class="form-button reply-btn" data-id="{{ comment.id }}" data-username="{% if comment.user and comment.user.usuario %}{{comment.user.usuario.username}}{% endif %}" style="width: fit-content;">Responder</a>
+            {% if user == comment.user.usuario or user.is_superuser %}
+            <button type="button" class="form-button danger" onclick="document.getElementById('delete-dialog-{{ comment.id }}').showModal();">Eliminar</button>
+            {% endif %}
+            
+            <dialog id="delete-dialog-{{ comment.id }}">
+                <form method="post" action="{% url 'clientes:eliminar_comentario' comment.id %}">
+                    {% csrf_token %}
+                    <p>¿Estás seguro de que deseas eliminar el comentario?</p>
+                    <br>
+                    <button type="submit" class="form-button danger" style="margin: 0 auto; margin-bottom:10px;">Sí, eliminar.</button>
+                    <button type="button" class="form-button" style="margin: 0 auto;" onclick="document.getElementById('delete-dialog-{{comment.id}}').close();">
+                        Cancelar
+                    </button>
+                </form>
+            </dialog>
+        </div>
     </div>
+    {% endif %}
 </div>
-{% endif %}
 </div>
 <div class="comment-children">
 {% for reply in comment.respuestas.all %}

@@ -6,14 +6,14 @@
 <h2>¡Bienvenido al centro de consultas de Dana!</h2>
 
 <p>Esta seccion le permite ver una serie de preguntas frecuentes que los usuarios nos hacen acerca de las compras. <br />
-   Estamos siempre a su disposición por cualquier consulta. Para hacer una pregurta, diríjase a la sección de comentarios.
+Estamos siempre a su disposición por cualquier consulta. Para hacer una pregurta, diríjase a la sección de comentarios.
 </p>
 
 <div class="preguntas-frecuentes">
     <h2>¿Como hago una compra en Dana?</h2>
     <span>Muy simple: dirígete a la sección de productos y selecciona el que desees agregar al carrito. <br />
-          Puedes ver una vista detallada del producto, elegir la cantidad que deseas y luego porceder al carrito para finalizar la compra.
-          Recuerda que el único medio de pago, por ahora, es ingresando los datos de la tarjeta. 
+        Puedes ver una vista detallada del producto, elegir la cantidad que deseas y luego porceder al carrito para finalizar la compra.
+        Recuerda que el único medio de pago, por ahora, es ingresando los datos de la tarjeta. 
     </span>
 </div>
 
@@ -21,15 +21,15 @@
     <h2>¿Qué hacer si un producto llega dañado?</h2>
     <span>La política de productos dañados es responsabilidad del servicio de cadetería, en cuyo caso el solo reclamo habilita a un cambio o reposición del producto en el menor tiempo posible. <br />
         El producto dañado debe ser devuelto a nuestra sucursal en los proximos 5 días o, de lo contrario, nos reservamos el derecho a la no reposición del producto. 
-          Si el mismo se encuentra agotado, no puede pedir el reembolso del dinero y deberá cambiarlo por otro producto, que puede tener el mismo precio o menor pero no podrá exceder el monto del producto a cambiar.
+        Si el mismo se encuentra agotado, no puede pedir el reembolso del dinero y deberá cambiarlo por otro producto, que puede tener el mismo precio o menor pero no podrá exceder el monto del producto a cambiar.
     </span>
 </div>
 
 <div class="preguntas-frecuentes">
     <h2>¿Como acceder a los descuentos?</h2>
     <span>Es posible acceder a ellos si se suscribe a nuestro sistema de lealtad Premium, por un minimo coste recibe un monto en su cartera personal que puede transferirse para acceder a premios especiales. <br>
-         El dinero queda en su cuenta y es acumulable con otros sistemas de descuentos del propio supermercado. Los productos adquiridos con este dinero no tienen devolución, sin importar el estado en el que se encuentren, pero pueden reclamarse si son recibidos incompletos. <br>
-         Es importante que conozca que tiene el 30% en todos los productos que se venden el supermercado, pero el costo de acceder a la membresía es de $40.000,00 mensuales y para acceder a estos descuentos no debe adeudar ninguna cuota.
+        El dinero queda en su cuenta y es acumulable con otros sistemas de descuentos del propio supermercado. Los productos adquiridos con este dinero no tienen devolución, sin importar el estado en el que se encuentren, pero pueden reclamarse si son recibidos incompletos. <br>
+        Es importante que conozca que tiene el 30% en todos los productos que se venden el supermercado, pero el costo de acceder a la membresía es de $40.000,00 mensuales y para acceder a estos descuentos no debe adeudar ninguna cuota.
     </span>
 </div>
 
@@ -38,7 +38,7 @@
 <br>
 {% if user.is_authenticated %}
 <div class="form-centered">
-    <form  method="post" action="{% url 'clientes:crear_comentario' %}">
+    <form id="resp"  method="post" action="{% url 'clientes:crear_comentario' %}">
         {% csrf_token %}
         <input type="hidden" name="parent_id" id="parent_id" value="">
         <div id="replying-box" style="display:none; margin-bottom:10px;">
@@ -61,7 +61,7 @@
 <div class="selection-box">
     <span>Ordenar por: </span>
     <form method="get">
-        <select class="select-combo" name="orden" onchange="this.form.submit()">
+        <select class="select-combo" title="Orden de comentarios" name="orden" onchange="this.form.submit()">
             <option value="best" {% if orden == 'best' %}selected{% endif %}>Mejor calificados</option>
             <option value="worst" {% if orden == 'worst' %}selected{% endif %}>Peor calificados</option>
             <option value="newest" {% if orden == 'newest' %}selected{% endif %}>Más recientes</option>
@@ -75,7 +75,7 @@
 {% endif %}
 <div id="wrapper" class="hidden">
 {% for comment in comentarios %}
-   {% include "clientes/comment_item.html" with comment=comment level=0 %}
+{% include "clientes/comment_item.html" with comment=comment level=0 %}
 {% empty %}
     <p style="text-align:center; margin-bottom:20px;">No hay comentarios aún. ¡Sé el primero en comentar!</p>
 {% endfor %}
@@ -155,7 +155,7 @@ function vote(commentId, voto) {
         document.getElementById(`likes-${commentId}`).textContent = `👍🏻 ${data.likes}`;
         document.getElementById(`dislikes-${commentId}`).textContent = `👎🏻 ${data.dislikes}`;
 
-         const likeBtn = document.getElementById(`like-btn-${commentId}`);
+        const likeBtn = document.getElementById(`like-btn-${commentId}`);
     const dislikeBtn = document.getElementById(`dislike-btn-${commentId}`);
 
     if (likeBtn && dislikeBtn) {

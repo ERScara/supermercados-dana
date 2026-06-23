@@ -112,17 +112,16 @@ input {
 }
 
 .form-button {
-   background-color: #fa593c;
-   margin: 0;
-   color:white;
-   border: 2px solid;
-   border-color: black;
-   display: flex;
-   position: inherit;
-   border-radius: 8px;
-   padding: 10px 20px;
-   font-weight: 600;
-   cursor: pointer;
+  background-color: #fa593c;
+  margin: 0;
+  color:white;
+  border: 2px solid;
+  border-color: black;
+  display: flex;
+  border-radius: 8px;
+  padding: 10px 20px;
+  font-weight: 600;
+  cursor: pointer;
 }
 
 .btn-editar-comentario {
